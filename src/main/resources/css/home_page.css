@@ -1,0 +1,53 @@
+.body {
+    -fx-background-image: url('../images/ph_map_bg.png');
+    -fx-background-size: cover;
+}
+
+.left {
+    -fx-padding: 164px 0 0 128px;
+}
+
+.left .tagline {
+    -fx-font-size: 30px;
+    -fx-font-weight: 700;
+    -fx-text-fill: white;
+}
+
+.left .travel-ease {
+    -fx-font-size: 20px;
+    -fx-font-weight: 400;
+    -fx-text-fill: white;
+}
+
+.left .login-button {
+    -fx-background-color: blue;
+    -fx-background-radius: 16px;
+    -fx-background-insets: 24px 0 8px 0;
+    -fx-text-fill: white;
+    -fx-padding: 8px 100px;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-radius: 8px;
+    -fx-border-insets: 24px 0 8px 0;
+    -fx-cursor: hand;
+}
+
+.left .signup-button {
+    -fx-background-color: yellow;
+    -fx-background-radius: 16px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 92px;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-radius: 8px;
+    -fx-cursor: hand;
+}
+
+.right .stacked-image {
+    -fx-border-color: black;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-radius: 8px;
+}
