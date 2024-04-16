@@ -3,7 +3,7 @@
 
 <br><br>
 
-> [!WARNING]  
+> [!WARNING]
 > This is a project for our finals.
 
 ### Members
@@ -15,4 +15,4 @@
 * Justin Karl Salimbagat
 * Kristine Salipot
 * Prince Salangsang
-* Yahj Galleto
+* Jhay Galleto
