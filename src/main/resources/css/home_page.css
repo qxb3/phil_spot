@@ -1,4 +1,4 @@
-.body {
+.scrollpane {
     -fx-background-image: url('../images/ph_map_bg.png');
     -fx-background-size: cover;
 }
@@ -20,7 +20,7 @@
 }
 
 .left .login-button {
-    -fx-background-color: blue;
+    -fx-background-color: #284f84;
     -fx-background-radius: 16px;
     -fx-background-insets: 24px 0 8px 0;
     -fx-text-fill: white;
@@ -34,7 +34,7 @@
 }
 
 .left .signup-button {
-    -fx-background-color: yellow;
+    -fx-background-color: #fac814;
     -fx-background-radius: 16px;
     -fx-text-fill: white;
     -fx-padding: 8px 92px;
@@ -50,4 +50,12 @@
     -fx-border-width: 2px;
     -fx-border-style: solid;
     -fx-border-radius: 8px;
+}
+
+.categories {
+}
+
+.categories Button {
+    -fx-background-color: rgba(135, 206, 235, 1);
+    -fx-padding: 32px;
 }

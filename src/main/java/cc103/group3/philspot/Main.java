@@ -11,7 +11,8 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        primaryStage.setScene(new HomePage(1024, 768));
+        primaryStage.setScene(new HomePage(primaryStage, 1024, 768).getScene()); primaryStage.show();
+        primaryStage.setTitle("PhilSpot");
         primaryStage.show();
     }
 }

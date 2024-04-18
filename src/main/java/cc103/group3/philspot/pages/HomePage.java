@@ -1,32 +1,45 @@
 package cc103.group3.philspot.pages;
 
+import cc103.group3.philspot.pages.shared.Footer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.util.Objects;
-import java.util.Stack;
 
-public class HomePage extends Scene {
+public class HomePage {
     private static final VBox container = new VBox();
+    private final Scene scene;
+    private final Stage primaryStage;
 
-    public HomePage(double width, double height) {
-        super(container, width, height);
+    public HomePage(Stage primaryStage, double width, double height) {
+        this.primaryStage = primaryStage;
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.getStyleClass().setAll("scrollpane");
+        scrollPane.setContent(container);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+
+        this.scene = new Scene(scrollPane, width, height);
 
         this.body();
 
-        this.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-        this.getStylesheets().add(this.getResource("/css/home_page.css"));
+        this.scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+        this.scene.getStylesheets().add(this.getResource("/css/home_page.css"));
     }
 
     private void body() {
@@ -34,12 +47,15 @@ public class HomePage extends Scene {
         body.getStyleClass().setAll("body");
         VBox.setVgrow(body, Priority.ALWAYS);
 
-        HBox children = new HBox();
+        HBox hero = new HBox();
+        hero.setMinHeight(768);
 
-        children.getChildren().add(this.left());
-        children.getChildren().add(this.right());
+        hero.getChildren().add(this.left());
+        hero.getChildren().add(this.right());
 
-        body.getChildren().add(children);
+        body.getChildren().add(hero);
+        body.getChildren().add(this.categories());
+        body.getChildren().add(new Footer());
 
         container.getChildren().add(body);
     }
@@ -61,6 +77,7 @@ public class HomePage extends Scene {
         travelEase.getStyleClass().setAll("travel-ease");
 
         Button loginButton = new Button("Login");
+
         loginButton.setAlignment(Pos.BOTTOM_CENTER);
         loginButton.getStyleClass().setAll("login-button");
 
@@ -82,8 +99,7 @@ public class HomePage extends Scene {
     private Node right() {
         HBox container = new HBox();
         HBox.setHgrow(container, Priority.ALWAYS);
-        container.setPadding(new Insets(164, 0, 0, 0));
-        container.setAlignment(Pos.BOTTOM_CENTER);
+        container.setAlignment(Pos.CENTER);
         container.getStyleClass().setAll("right");
 
         double IMAGE_WIDTH = 220;
@@ -118,7 +134,45 @@ public class HomePage extends Scene {
         return container;
     }
 
+    private Node categories() {
+        VBox container = new VBox();
+        container.setPadding(new Insets(32, 64, 128, 64));
+        container.getStyleClass().setAll("categories");
+
+        HBox line1 = new HBox();
+        HBox.setHgrow(line1, Priority.ALWAYS);
+
+        Button food = this.category(container);
+        Button fun = this.category(container);
+
+        line1.getChildren().setAll(food, fun);
+
+        Button fascinatingScenaries = new Button();
+        fascinatingScenaries.setText("Fascinating\nScenaries");
+
+        container.getChildren().setAll(
+                line1
+        );
+
+        return container;
+    }
+
+    private Button category(VBox line) {
+        Button button = new Button();
+
+        VBox graphic = new VBox();
+        graphic.getChildren().setAll(new Label("hi"));
+
+        button.setGraphic(graphic);
+
+        return button;
+    }
+
     private String getResource(String path) {
         return Objects.requireNonNull(this.getClass().getResource(path)).toExternalForm();
+    }
+
+    public Scene getScene() {
+        return scene;
     }
 }
