@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     public Stage primaryStage;
-    public Scene homePage, login, register;
+    public Scene HomePage, LoginPage, RegisterPage;
 
     public static void main(String[] args) {
         launch(args);
@@ -18,12 +18,17 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         this.primaryStage = primaryStage;
-        this.homePage = new HomePage(this, 1024, 768).getScene();
-        this.login = new LoginPage(this, 1024, 768).getScene();
-        this.register = new RegisterPage(this, 1024, 768).getScene();
 
-        primaryStage.setScene(this.homePage);
+        this.HomePage = new HomePage(this, 1024, 768).getScene();
+        this.LoginPage = new LoginPage(this, 1024, 768).getScene();
+        this.RegisterPage = new RegisterPage(this, 1024, 768).getScene();
+
+        primaryStage.setScene(this.HomePage);
         primaryStage.setTitle("PhilSpot");
         primaryStage.show();
+    }
+
+    public void switchScreen(Scene scene) {
+        this.primaryStage.setScene(scene);
     }
 }

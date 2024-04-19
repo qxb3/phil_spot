@@ -22,12 +22,12 @@ import java.util.Objects;
 public class HomePage {
     private static final VBox container = new VBox();
     private final Scene scene;
-    private final Main main;
+    private final Main app;
     private final double width;
     private final double height;
 
-    public HomePage(Main main, double width, double height) {
-        this.main = main;
+    public HomePage(Main app, double width, double height) {
+        this.app = app;
         this.width = width;
         this.height = height;
 
@@ -81,9 +81,7 @@ public class HomePage {
         travelEase.getStyleClass().setAll("travel-ease");
 
         Button loginButton = new Button("Login");
-        loginButton.setOnAction(event -> {
-            this.main.primaryStage.setScene(this.main.login);
-        });
+        loginButton.setOnAction(event -> this.app.switchScreen(this.app.LoginPage));
 
         loginButton.setAlignment(Pos.BOTTOM_CENTER);
         loginButton.getStyleClass().setAll("login-button");
@@ -91,9 +89,7 @@ public class HomePage {
         Button signupButton = new Button("Sign Up");
         signupButton.setAlignment(Pos.BOTTOM_CENTER);
         signupButton.getStyleClass().setAll("signup-button");
-        signupButton.setOnAction(event -> {
-            this.main.primaryStage.setScene(this.main.register);
-        });
+        signupButton.setOnAction(event -> this.app.switchScreen(this.app.RegisterPage));
 
         left.getChildren().setAll(
                 logo,

@@ -19,12 +19,12 @@ import java.util.Objects;
 public class RegisterPage {
     private static final VBox container = new VBox();
     private final Scene scene;
-    private final Main main;
+    private final Main app;
     private final double width;
     private final double height;
 
-    public RegisterPage(Main main, double width, double height) {
-        this.main = main;
+    public RegisterPage(Main app, double width, double height) {
+        this.app = app;
         this.width = width;
         this.height = height;
 
@@ -73,9 +73,7 @@ public class RegisterPage {
 
         Label alreadyHaveAnAccount = new Label("Already have an account?");
         Hyperlink login = new Hyperlink("Login");
-        login.setOnAction(event -> {
-            this.main.primaryStage.setScene(this.main.login);
-        });
+        login.setOnAction(event -> this.app.switchScreen(this.app.LoginPage));
 
         loginContainer.getChildren().setAll(registerButton, alreadyHaveAnAccount, login);
 
