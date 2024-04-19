@@ -2,6 +2,8 @@ package cc103.group3.philspot.pages;
 
 import cc103.group3.philspot.Main;
 import cc103.group3.philspot.pages.shared.Footer;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -17,6 +19,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
+import java.util.Collections;
 import java.util.Objects;
 
 public class HomePage {
@@ -141,37 +144,45 @@ public class HomePage {
     }
 
     private Node categories() {
-        VBox container = new VBox();
-        container.setPadding(new Insets(32, 64, 128, 64));
-        container.getStyleClass().setAll("categories");
+        StackPane categories = new StackPane();
+        HBox.setHgrow(categories, Priority.ALWAYS);
+        categories.getStyleClass().setAll("categories");
+        categories.setPadding(new Insets(0, 64, 160, 64));
+        categories.setAlignment(Pos.CENTER);
 
-        HBox line1 = new HBox();
-        HBox.setHgrow(line1, Priority.ALWAYS);
+        double IMAGE_WIDTH = 550;
+        double IMAGE_SCALE = 0.75;
 
-        Button food = this.category(container);
-        Button fun = this.category(container);
+        ImageView leftImage = new ImageView(new Image(getResource("/images/food.jpg"), true));
+        leftImage.setPreserveRatio(true);
+        leftImage.setFitWidth(IMAGE_WIDTH);
+        leftImage.setTranslateX(-leftImage.getFitWidth() / 1.5);
+        leftImage.setScaleX(IMAGE_SCALE);
+        leftImage.setScaleY(IMAGE_SCALE);
 
-        line1.getChildren().setAll(food, fun);
+        ImageView centerImage = new ImageView(new Image(getResource("/images/fun.jpg"), true));
+        centerImage.setPreserveRatio(true);
+        centerImage.setFitWidth(IMAGE_WIDTH);
 
-        Button fascinatingScenaries = new Button();
-        fascinatingScenaries.setText("Fascinating\nScenaries");
+        ImageView rightImage = new ImageView(new Image(getResource("/images/scenery.jpg"), true));
+        rightImage.setPreserveRatio(true);
+        rightImage.setFitWidth(IMAGE_WIDTH);
+        rightImage.setTranslateX(rightImage.getFitWidth() / 1.5);
+        rightImage.setScaleX(IMAGE_SCALE);
+        rightImage.setScaleY(IMAGE_SCALE);
 
-        container.getChildren().setAll(
-                line1
-        );
+        StackPane images = new StackPane();
+        images.getChildren().setAll(leftImage, rightImage, centerImage);
 
-        return container;
-    }
+        Button leftButton = new Button("<");
+        leftButton.setTranslateX(-centerImage.getFitWidth() - 32);
 
-    private Button category(VBox line) {
-        Button button = new Button();
+        Button rightButton = new Button(">");
+        rightButton.setTranslateX(centerImage.getFitWidth() + 32);
 
-        VBox graphic = new VBox();
-        graphic.getChildren().setAll(new Label("hi"));
+        categories.getChildren().setAll(images, leftButton, rightButton);
 
-        button.setGraphic(graphic);
-
-        return button;
+        return categories;
     }
 
     private String getResource(String path) {

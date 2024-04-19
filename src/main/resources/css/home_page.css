@@ -56,6 +56,9 @@
 }
 
 .categories Button {
-    -fx-background-color: rgba(135, 206, 235, 1);
-    -fx-padding: 32px;
+    -fx-background-color: transparent;
+    -fx-text-fill: #fff;
+    -fx-font-size: 50px;
+    -fx-padding: 0;
+    -fx-cursor: hand;
 }
