@@ -16,14 +16,14 @@ import javafx.scene.layout.VBox;
 
 import java.util.Objects;
 
-public class Login {
+public class LoginPage {
     private static final VBox container = new VBox();
     private final Scene scene;
     private final Main main;
     private final double width;
     private final double height;
 
-    public Login(Main main, double width, double height) {
+    public LoginPage(Main main, double width, double height) {
         this.main = main;
         this.width = width;
         this.height = height;
