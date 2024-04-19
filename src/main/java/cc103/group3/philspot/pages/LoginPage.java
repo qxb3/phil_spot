@@ -20,13 +20,9 @@ public class LoginPage {
     private static final VBox container = new VBox();
     private final Scene scene;
     private final Main app;
-    private final double width;
-    private final double height;
 
     public LoginPage(Main app, double width, double height) {
         this.app = app;
-        this.width = width;
-        this.height = height;
 
         ImageView logoImage = new ImageView(new Image(getResource("/images/philspot_logo.png")));
         logoImage.setPreserveRatio(true);

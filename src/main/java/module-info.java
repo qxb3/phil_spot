@@ -1,4 +1,4 @@
-module cc102.group3.philspot {
+module cc103.group3.philspot {
     requires javafx.controls;
     requires javafx.fxml;
 
