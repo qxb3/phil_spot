@@ -1,0 +1,40 @@
+.container {
+    -fx-background-image: url('../images/ph_map_bg.png');
+    -fx-background-size: cover;
+}
+
+.body .login-txt {
+    -fx-text-fill: #fff;
+    -fx-font-size: 48px;
+}
+
+.body .input {
+    -fx-background-color: #848f9d;
+    -fx-text-fill: #fff;
+    -fx-prompt-text-fill: #cccccc;
+    -fx-border-color: #fff;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 8px 10px 8px;
+}
+
+.body .login-button {
+    -fx-background-color: #284f84;
+    -fx-background-radius: 16px;
+    -fx-text-fill: white;
+    -fx-padding: 8px 100px;
+    -fx-border-color: white;
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-border-radius: 8px;
+    -fx-cursor: hand;
+}
+
+Label {
+    -fx-text-fill: #fff;
+}
+
+Hyperlink {
+    -fx-text-fill: yellow;
+    -fx-underline: true;
+}

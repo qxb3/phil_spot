@@ -1,5 +1,6 @@
 package cc103.group3.philspot.pages;
 
+import cc103.group3.philspot.Main;
 import cc103.group3.philspot.pages.shared.Footer;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -14,7 +15,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import org.kordamp.bootstrapfx.BootstrapFX;
 
 import java.util.Objects;
@@ -22,10 +22,14 @@ import java.util.Objects;
 public class HomePage {
     private static final VBox container = new VBox();
     private final Scene scene;
-    private final Stage primaryStage;
+    private final Main main;
+    private final double width;
+    private final double height;
 
-    public HomePage(Stage primaryStage, double width, double height) {
-        this.primaryStage = primaryStage;
+    public HomePage(Main main, double width, double height) {
+        this.main = main;
+        this.width = width;
+        this.height = height;
 
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.getStyleClass().setAll("scrollpane");
@@ -77,6 +81,9 @@ public class HomePage {
         travelEase.getStyleClass().setAll("travel-ease");
 
         Button loginButton = new Button("Login");
+        loginButton.setOnAction(event -> {
+            this.main.primaryStage.setScene(this.main.login);
+        });
 
         loginButton.setAlignment(Pos.BOTTOM_CENTER);
         loginButton.getStyleClass().setAll("login-button");
@@ -84,6 +91,9 @@ public class HomePage {
         Button signupButton = new Button("Sign Up");
         signupButton.setAlignment(Pos.BOTTOM_CENTER);
         signupButton.getStyleClass().setAll("signup-button");
+        signupButton.setOnAction(event -> {
+            this.main.primaryStage.setScene(this.main.register);
+        });
 
         left.getChildren().setAll(
                 logo,
