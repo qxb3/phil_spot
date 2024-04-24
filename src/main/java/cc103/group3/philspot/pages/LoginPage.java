@@ -6,10 +6,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
@@ -64,11 +61,13 @@ public class LoginPage {
         email.getStyleClass().setAll("input", "email");
         email.setPromptText("Email");
         email.setMaxWidth(300);
+        email.setCursor(Cursor.TEXT);
 
-        TextField password = new TextField();
+        PasswordField password = new PasswordField();
         password.getStyleClass().setAll("input", "password");
         password.setPromptText("Password");
         password.setMaxWidth(300);
+        password.setCursor(Cursor.TEXT);
 
         HBox loginContainer = new HBox();
         loginContainer.setAlignment(Pos.CENTER);
@@ -77,6 +76,10 @@ public class LoginPage {
         loginButton.setAlignment(Pos.CENTER);
         loginButton.getStyleClass().setAll("login-button");
         loginButton.setMinWidth(300);
+        loginButton.setOnAction(event -> {
+            String userEmail = email.getText();
+            String userPassword = password.getText();
+        });
 
         Label dontHaveAnAccount = new Label("Dont't have an account?");
         Hyperlink register = new Hyperlink("Register");
