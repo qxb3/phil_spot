@@ -32,7 +32,6 @@ public class LoginPage {
         logoButton.setGraphic(logoImage);
         logoButton.setCursor(Cursor.HAND);
         logoButton.setOnAction(event -> {
-            System.out.println("clicked from login");
             this.app.switchScreen(this.app.HomePage);
         });
 
@@ -100,7 +99,7 @@ public class LoginPage {
                 return;
             }
 
-            if (!userEmail.contentEquals("test") && !userPassword.contentEquals("test123")) {
+            if (!userEmail.contentEquals("test") || !userPassword.contentEquals("test123")) {
                 errorMessage.setText("Invalid email or password");
                 errorBox.setVisible(true);
                 return;
