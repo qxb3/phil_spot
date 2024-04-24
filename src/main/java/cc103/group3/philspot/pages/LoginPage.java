@@ -3,6 +3,7 @@ package cc103.group3.philspot.pages;
 import cc103.group3.philspot.Main;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -11,6 +12,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -28,10 +30,19 @@ public class LoginPage {
         logoImage.setPreserveRatio(true);
         logoImage.setFitWidth(148);
 
+        Button logoButton = new Button();
+        logoButton.setBackground(Background.EMPTY);
+        logoButton.setGraphic(logoImage);
+        logoButton.setCursor(Cursor.HAND);
+        logoButton.setOnAction(event -> {
+            System.out.println("clicked from login");
+            this.app.switchScreen(this.app.HomePage);
+        });
+
         container.getStyleClass().setAll("container");
         container.setPadding(new Insets(32));
         container.getChildren().setAll(
-                logoImage,
+                logoButton,
                 this.body()
         );
 
