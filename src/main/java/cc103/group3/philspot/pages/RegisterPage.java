@@ -54,6 +54,14 @@ public class RegisterPage {
         Label loginTxt = new Label("Register");
         loginTxt.getStyleClass().setAll("register-txt");
 
+        HBox errorBox = new HBox();
+        errorBox.setMaxWidth(300);
+        errorBox.getStyleClass().setAll("error-box");
+        errorBox.setVisible(false);
+
+        Label errorMessage = new Label("");
+        errorBox.getChildren().setAll(errorMessage);
+
         TextField email = new TextField();
         email.getStyleClass().setAll("input", "email");
         email.setPromptText("Email");
@@ -73,6 +81,24 @@ public class RegisterPage {
         registerButton.setAlignment(Pos.CENTER);
         registerButton.getStyleClass().setAll("register-button");
         registerButton.setMinWidth(300);
+        registerButton.setOnAction(event -> {
+            String userEmail = email.getText();
+            String userPassword = password.getText();
+
+            if (userEmail.isEmpty()) {
+                errorMessage.setText("Email cannot be empty");
+                errorBox.setVisible(true);
+                return;
+            }
+
+            if (userPassword.isEmpty()) {
+                errorMessage.setText("Password cannot be empty");
+                errorBox.setVisible(true);
+                return;
+            }
+
+            System.out.println("successfuly registered");
+        });
 
         Label alreadyHaveAnAccount = new Label("Already have an account?");
         Hyperlink login = new Hyperlink("Login");
@@ -82,6 +108,7 @@ public class RegisterPage {
 
         body.getChildren().setAll(
                 loginTxt,
+                errorBox,
                 email,
                 password,
                 registerButton,

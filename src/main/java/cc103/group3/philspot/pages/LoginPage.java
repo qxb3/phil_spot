@@ -62,7 +62,7 @@ public class LoginPage {
         errorBox.getStyleClass().setAll("error-box");
         errorBox.setVisible(false);
 
-        Label errorMessage = new Label("test");
+        Label errorMessage = new Label("");
         errorBox.getChildren().setAll(errorMessage);
 
         TextField email = new TextField();

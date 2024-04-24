@@ -8,6 +8,16 @@
     -fx-font-size: 48px;
 }
 
+.body .error-box {
+    -fx-background-color: red;
+    -fx-background-radius: 16px;
+    -fx-padding: 10px;
+    -fx-text-fill: #fff;
+    -fx-border-color: #fff;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+}
+
 .body .input {
     -fx-background-color: #848f9d;
     -fx-text-fill: #fff;
