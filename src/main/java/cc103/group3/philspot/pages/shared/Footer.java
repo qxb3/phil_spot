@@ -20,17 +20,17 @@ public class Footer extends VBox {
         socialsContainer.setPadding(new Insets(16, 0, 0, 0));
         socialsContainer.setSpacing(16);
 
-        ImageView twitterImage = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("/images/twitter.png")).toExternalForm(), true));
+        ImageView twitterImage = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("/images/icons/twitter.png")).toExternalForm(), true));
         twitterImage.setFitWidth(54);
         twitterImage.setFitHeight(54);
         twitterImage.setPreserveRatio(true);
 
-        ImageView facebookImage = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("/images/facebook.png")).toExternalForm(), true));
+        ImageView facebookImage = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("/images/icons/facebook.png")).toExternalForm(), true));
         facebookImage.setFitWidth(54);
         facebookImage.setFitHeight(54);
         facebookImage.setPreserveRatio(true);
 
-        ImageView instagramImage = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("/images/instagram.png")).toExternalForm(), true));
+        ImageView instagramImage = new ImageView(new Image(Objects.requireNonNull(this.getClass().getResource("/images/icons/instagram.png")).toExternalForm(), true));
         instagramImage.setFitWidth(64);
         instagramImage.setFitHeight(64);
         instagramImage.setPreserveRatio(true);
