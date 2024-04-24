@@ -57,6 +57,14 @@ public class LoginPage {
         Label loginTxt = new Label("Login");
         loginTxt.getStyleClass().setAll("login-txt");
 
+        HBox errorBox = new HBox();
+        errorBox.setMaxWidth(300);
+        errorBox.getStyleClass().setAll("error-box");
+        errorBox.setVisible(false);
+
+        Label errorMessage = new Label("test");
+        errorBox.getChildren().setAll(errorMessage);
+
         TextField email = new TextField();
         email.getStyleClass().setAll("input", "email");
         email.setPromptText("Email");
@@ -79,6 +87,29 @@ public class LoginPage {
         loginButton.setOnAction(event -> {
             String userEmail = email.getText();
             String userPassword = password.getText();
+
+            if (userEmail.isEmpty()) {
+                errorMessage.setText("Email cannot be empty");
+                errorBox.setVisible(true);
+                return;
+            }
+
+            if (userPassword.isEmpty()) {
+                errorMessage.setText("Password cannot be empty");
+                errorBox.setVisible(true);
+                return;
+            }
+
+            if (!userEmail.contentEquals("test") && !userPassword.contentEquals("test123")) {
+                errorMessage.setText("Invalid email or password");
+                errorBox.setVisible(true);
+                return;
+            }
+
+            errorMessage.setText("");
+            errorBox.setVisible(false);
+
+            // this.app.switchScreen();
         });
 
         Label dontHaveAnAccount = new Label("Dont't have an account?");
@@ -89,6 +120,7 @@ public class LoginPage {
 
         body.getChildren().setAll(
                 loginTxt,
+                errorBox,
                 email,
                 password,
                 loginButton,
