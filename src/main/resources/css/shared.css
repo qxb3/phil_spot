@@ -3,3 +3,8 @@
     -fx-border-color: white;
     -fx-border-width: 2 0 0 0;
 }
+
+.header {
+    -fx-background-color: #848f9d;
+    -fx-padding: 24px;
+}
