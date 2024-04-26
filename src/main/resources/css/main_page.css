@@ -1,0 +1,46 @@
+ScrollPane {
+    -fx-background-color: #C6D4D8;
+}
+
+.destinations {
+    -fx-background-color: #848f9d;
+    -fx-background-radius: 16px;
+    -fx-text-fill: #fff;
+    -fx-prompt-text-fill: #cccccc;
+    -fx-border-color: #fff;
+    -fx-border-width: 2px;
+    -fx-border-radius: 8px;
+    -fx-padding: 10px 8px 10px 8px;
+}
+
+.categories .category {
+    -fx-background-size: cover;
+    -fx-background-radius: 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding: 8px;
+    -fx-border-color: #414E55;
+    -fx-border-width: 2px;
+    -fx-text-fill: #fff;
+    -fx-font-size: 16px;
+}
+
+.locations-container .more-to-explore {
+    -fx-text-fill: #000;
+    -fx-font-size: 22px;
+}
+
+.locations-container .location {
+    -fx-background-size: cover;
+    -fx-background-radius: 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding: 12px;
+    -fx-border-color: #414E55;
+    -fx-border-width: 2px;
+}
+
+.locations-container .location Label {
+    -fx-text-fill: #fff;
+    -fx-font-size: 24px;
+}

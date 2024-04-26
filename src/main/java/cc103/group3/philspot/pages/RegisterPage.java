@@ -31,7 +31,7 @@ public class RegisterPage {
         logoButton.setBackground(Background.EMPTY);
         logoButton.setGraphic(logoImage);
         logoButton.setCursor(Cursor.HAND);
-        logoButton.setOnAction(event -> this.app.switchScreen(this.app.HomePage));
+        logoButton.setOnAction(event -> this.app.switchScreen(this.app.LandingPage));
 
         container.getStyleClass().setAll("container");
         container.setPadding(new Insets(32));

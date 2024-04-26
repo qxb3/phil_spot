@@ -2,8 +2,6 @@ package cc103.group3.philspot.pages;
 
 import cc103.group3.philspot.Main;
 import cc103.group3.philspot.pages.shared.Footer;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -17,19 +15,17 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
-import org.kordamp.bootstrapfx.BootstrapFX;
 
-import java.util.Collections;
 import java.util.Objects;
 
-public class HomePage {
+public class LandingPage {
     private static final VBox container = new VBox();
     private final Scene scene;
     private final Main app;
     private final double width;
     private final double height;
 
-    public HomePage(Main app, double width, double height) {
+    public LandingPage(Main app, double width, double height) {
         this.app = app;
         this.width = width;
         this.height = height;
@@ -45,8 +41,7 @@ public class HomePage {
 
         this.body();
 
-        this.scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
-        this.scene.getStylesheets().add(this.getResource("/css/home_page.css"));
+        this.scene.getStylesheets().add(this.getResource("/css/landing_page.css"));
     }
 
     private void body() {

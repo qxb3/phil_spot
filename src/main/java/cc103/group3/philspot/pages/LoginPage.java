@@ -32,7 +32,7 @@ public class LoginPage {
         logoButton.setGraphic(logoImage);
         logoButton.setCursor(Cursor.HAND);
         logoButton.setOnAction(event -> {
-            this.app.switchScreen(this.app.HomePage);
+            this.app.switchScreen(this.app.LandingPage);
         });
 
         container.getStyleClass().setAll("container");
@@ -108,7 +108,7 @@ public class LoginPage {
             errorMessage.setText("");
             errorBox.setVisible(false);
 
-            // this.app.switchScreen();
+            this.app.switchScreen(this.app.MainPage);
         });
 
         Label dontHaveAnAccount = new Label("Dont't have an account?");
