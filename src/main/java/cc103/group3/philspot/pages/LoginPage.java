@@ -1,6 +1,9 @@
 package cc103.group3.philspot.pages;
 
+import static com.mongodb.client.model.Filters.eq;
+
 import cc103.group3.philspot.Main;
+import com.mongodb.client.MongoCollection;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -12,6 +15,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.bson.Document;
 
 import java.util.Objects;
 
@@ -64,11 +68,11 @@ public class LoginPage {
         Label errorMessage = new Label("");
         errorBox.getChildren().setAll(errorMessage);
 
-        TextField email = new TextField();
-        email.getStyleClass().setAll("input", "email");
-        email.setPromptText("Email");
-        email.setMaxWidth(300);
-        email.setCursor(Cursor.TEXT);
+        TextField username = new TextField();
+        username.getStyleClass().setAll("input", "username");
+        username.setPromptText("Username");
+        username.setMaxWidth(300);
+        username.setCursor(Cursor.TEXT);
 
         PasswordField password = new PasswordField();
         password.getStyleClass().setAll("input", "password");
@@ -84,11 +88,11 @@ public class LoginPage {
         loginButton.getStyleClass().setAll("login-button");
         loginButton.setMinWidth(300);
         loginButton.setOnAction(event -> {
-            String userEmail = email.getText();
+            String userName = username.getText();
             String userPassword = password.getText();
 
-            if (userEmail.isEmpty()) {
-                errorMessage.setText("Email cannot be empty");
+            if (userName.isEmpty()) {
+                errorMessage.setText("Username cannot be empty");
                 errorBox.setVisible(true);
                 return;
             }
@@ -99,8 +103,15 @@ public class LoginPage {
                 return;
             }
 
-            if (!userEmail.contentEquals("test") || !userPassword.contentEquals("test123")) {
-                errorMessage.setText("Invalid email or password");
+            MongoCollection<Document> users = this.app.database.getCollection("Users");
+            Document saidUser = users.find(
+                    new Document()
+                            .append("username", userName)
+                            .append("password", userPassword)
+            ).first();
+
+            if (saidUser == null) {
+                errorMessage.setText("Invalid username or password");
                 errorBox.setVisible(true);
                 return;
             }
@@ -111,6 +122,7 @@ public class LoginPage {
             this.app.switchScreen(this.app.MainPage);
         });
 
+
         Label dontHaveAnAccount = new Label("Dont't have an account?");
         Hyperlink register = new Hyperlink("Register");
         register.setOnAction(event -> this.app.switchScreen(this.app.RegisterPage));
@@ -120,7 +132,7 @@ public class LoginPage {
         body.getChildren().setAll(
                 loginTxt,
                 errorBox,
-                email,
+                username,
                 password,
                 loginButton,
                 loginContainer

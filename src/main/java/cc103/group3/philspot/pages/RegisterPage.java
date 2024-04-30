@@ -1,6 +1,7 @@
 package cc103.group3.philspot.pages;
 
 import cc103.group3.philspot.Main;
+import com.mongodb.client.MongoCollection;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -12,6 +13,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import org.bson.Document;
 
 import java.util.Objects;
 
@@ -62,11 +64,11 @@ public class RegisterPage {
         Label errorMessage = new Label("");
         errorBox.getChildren().setAll(errorMessage);
 
-        TextField email = new TextField();
-        email.getStyleClass().setAll("input", "email");
-        email.setPromptText("Email");
-        email.setMaxWidth(300);
-        email.setCursor(Cursor.TEXT);
+        TextField username = new TextField();
+        username.getStyleClass().setAll("input", "username");
+        username.setPromptText("Username");
+        username.setMaxWidth(300);
+        username.setCursor(Cursor.TEXT);
 
         PasswordField password = new PasswordField();
         password.getStyleClass().setAll("input", "password");
@@ -82,11 +84,11 @@ public class RegisterPage {
         registerButton.getStyleClass().setAll("register-button");
         registerButton.setMinWidth(300);
         registerButton.setOnAction(event -> {
-            String userEmail = email.getText();
+            String userName = username.getText();
             String userPassword = password.getText();
 
-            if (userEmail.isEmpty()) {
-                errorMessage.setText("Email cannot be empty");
+            if (userName.isEmpty()) {
+                errorMessage.setText("Username cannot be empty");
                 errorBox.setVisible(true);
                 return;
             }
@@ -97,7 +99,14 @@ public class RegisterPage {
                 return;
             }
 
-            System.out.println("successfuly registered");
+            MongoCollection<Document> users = this.app.database.getCollection("Users");
+            Document newUser = new Document()
+                    .append("username", userName)
+                    .append("password", userPassword);
+
+            users.insertOne(newUser);
+
+            this.app.switchScreen(this.app.LoginPage);
         });
 
         Label alreadyHaveAnAccount = new Label("Already have an account?");
@@ -109,7 +118,7 @@ public class RegisterPage {
         body.getChildren().setAll(
                 loginTxt,
                 errorBox,
-                email,
+                username,
                 password,
                 registerButton,
                 loginContainer
