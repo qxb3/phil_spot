@@ -100,6 +100,13 @@ public class RegisterPage {
             }
 
             MongoCollection<Document> users = this.app.database.getCollection("Users");
+
+            if (users.find(new Document().append("username", userName)).first() != null) {
+                errorMessage.setText("That username is already taken");
+                errorBox.setVisible(true);
+                return;
+            }
+
             Document newUser = new Document()
                     .append("username", userName)
                     .append("password", userPassword);
