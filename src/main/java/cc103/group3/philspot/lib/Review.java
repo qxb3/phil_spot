@@ -3,6 +3,7 @@ package cc103.group3.philspot.lib;
 public class Review {
     private String userImage;
     private String username;
+    private String description;
     private int rating;
     private String[] images;
 
@@ -21,6 +22,15 @@ public class Review {
 
     public Review setUsername(String username) {
         this.username = username;
+        return this;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public Review setDescription(String description) {
+        this.description = description;
         return this;
     }
 

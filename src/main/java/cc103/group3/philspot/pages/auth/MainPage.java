@@ -3,6 +3,8 @@ package cc103.group3.philspot.pages.auth;
 import cc103.group3.philspot.Main;
 import cc103.group3.philspot.lib.Location;
 import cc103.group3.philspot.lib.Review;
+import cc103.group3.philspot.lib.ThingsToDo;
+import cc103.group3.philspot.pages.shared.Footer;
 import cc103.group3.philspot.pages.shared.Header;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -44,6 +46,7 @@ public class MainPage {
 
         container.getChildren().add(new Header(this.app));
         container.getChildren().add(this.body());
+        container.getChildren().add(new Footer());
 
         this.scene.getStylesheets().add(this.getResource("/css/main_page.css"));
     }
@@ -136,10 +139,22 @@ public class MainPage {
                                 "Modern Activity: In recent history, Mayon has continued to be active, with eruptions occurring periodically. The volcano's activity often leads to evacuations of nearby communities and disruption of daily life in the region. Despite the risks posed by its eruptions, Mayon's scenic beauty continues to attract tourists and researchers interested in studying its geological phenomena.\n\n" +
                                 "Mayon Volcano stands not only as a geological wonder but also as a symbol of the resilience of the Filipino people, who continue to live in its shadow despite the inherent risks posed by its eruptions."
                         )
+                        .setThingsToDos(
+                                ThingsToDo.builder()
+                                        .setTitle("Atv Riding")
+                                        .setImage(this.getResource("/images/locations/mayon_volcano/things_to_do/atv_riding.png")),
+                                ThingsToDo.builder()
+                                        .setTitle("Mountain Climbing")
+                                        .setImage(this.getResource("/images/locations/mayon_volcano/things_to_do/mountain_climbing.png")),
+                                ThingsToDo.builder()
+                                        .setTitle("Zipline")
+                                        .setImage(this.getResource("/images/locations/mayon_volcano/things_to_do/zipline.png"))
+                        )
                         .setReviews(
                                 Review.builder()
                                         .setUserImage(this.getResource("/images/locations/mayon_volcano/reviews/ashley/user_profile.png"))
                                         .setUsername("Ashley")
+                                        .setDescription("Fantastic experience from start to finish. Can't wait to return!")
                                         .setRating(5)
                                         .setImages(
                                                 this.getResource("/images/locations/mayon_volcano/reviews/ashley/1.png"),
@@ -161,10 +176,22 @@ public class MainPage {
                         .setHistory(
                                 "Coron has a history dating back thousands of years, initially inhabited by indigenous tribes such as the Tagbanua and Batak people. During World War II, it was a strategic location for both American and Japanese forces, leading to intense battles in the area."
                         )
+                        .setThingsToDos(
+                                ThingsToDo.builder()
+                                        .setTitle("Diving")
+                                        .setImage(this.getResource("/images/locations/coron_palawan/things_to_do/diving.png")),
+                                ThingsToDo.builder()
+                                        .setTitle("Fishing")
+                                        .setImage(this.getResource("/images/locations/coron_palawan/things_to_do/fishing.png")),
+                                ThingsToDo.builder()
+                                        .setTitle("Island Hopping")
+                                        .setImage(this.getResource("/images/locations/coron_palawan/things_to_do/island_hopping.png"))
+                        )
                         .setReviews(
                                 Review.builder()
                                         .setUserImage(this.getResource("/images/locations/coron_palawan/reviews/robin/user_profile.png"))
                                         .setUsername("Ashley")
+                                        .setDescription("A hidden gem! The flavors were exquisite and left us wanting more.")
                                         .setRating(5)
                                         .setImages(
                                                 this.getResource("/images/locations/coron_palawan/reviews/robin/1.png"),
@@ -205,6 +232,11 @@ public class MainPage {
         HBox.setHgrow(button, Priority.ALWAYS);
         button.getStyleClass().setAll("location");
         button.setCursor(Cursor.HAND);
+
+        button.setOnAction(event -> {
+            this.app.LocationPageInstance.setLocation(location);
+            this.app.switchScreen(this.app.LocationPage);
+        });
 
         HBox name = new HBox();
         name.setMinWidth(250);

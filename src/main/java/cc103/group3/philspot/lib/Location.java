@@ -6,6 +6,7 @@ public class Location {
     private String description;
     private String location;
     private String history;
+    private ThingsToDo[] thingsToDos;
     private Review[] reviews;
 
     public String[] getImages() {
@@ -50,6 +51,15 @@ public class Location {
 
     public Location setHistory(String history) {
         this.history = history;
+        return this;
+    }
+
+    public ThingsToDo[] getThingsToDos() {
+        return this.thingsToDos;
+    }
+
+    public Location setThingsToDos(ThingsToDo ...thingsToDos) {
+        this.thingsToDos = thingsToDos;
         return this;
     }
 

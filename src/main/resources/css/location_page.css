@@ -1,0 +1,62 @@
+Label {
+    -fx-text-fill: #000;
+    -fx-font-size: 16px;
+}
+
+ScrollPane {
+    -fx-background-color: #C6D4D8;
+}
+
+.carousel {
+    -fx-background-color: #b3c6cb;
+}
+
+.carousel .carousel-img {
+    -fx-background-size: 80% 100%;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.carousel .control-button {
+    -fx-text-fill: #fff;
+    -fx-font-size: 32px;
+}
+
+.body .name {
+    -fx-font-size: 40px;
+}
+
+.body .location Label {
+    -fx-font-size: 30px;
+}
+
+.body .history .title,
+.body .things-to-do .title,
+.body .reviews .title {
+    -fx-font-size: 24px;
+}
+
+.body .things-to-do .to-dos .to-do {
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-border-color: #414E55;
+    -fx-border-width: 2px;
+}
+
+.body .things-to-do .to-dos .to-do Label {
+    -fx-text-fill: #fff;
+    -fx-font-size: 20px;
+}
+
+.body .reviews .username {
+    -fx-font-size: 24px;
+}
+
+.body .reviews .review-img {
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-border-color: #414E55;
+    -fx-border-width: 2px;
+}
