@@ -121,9 +121,12 @@ public class LoginPage {
             errorMessage.setText("");
             errorBox.setVisible(false);
 
+            username.setText("");
+            password.setText("");
+
             PersistentStore.saveData(
                     "USERNAME=" + userName + "\n" +
-                            "PASSWORD=" + userPassword
+                    "PASSWORD=" + userPassword
             );
 
             this.app.switchScreen(this.app.MainPage);

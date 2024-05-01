@@ -107,6 +107,9 @@ public class RegisterPage {
                 return;
             }
 
+            username.setText("");
+            password.setText("");
+
             Document newUser = new Document()
                     .append("username", userName)
                     .append("password", userPassword);
