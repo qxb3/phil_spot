@@ -3,6 +3,7 @@ package cc103.group3.philspot.pages;
 import static com.mongodb.client.model.Filters.eq;
 
 import cc103.group3.philspot.Main;
+import cc103.group3.philspot.PersistentStore;
 import com.mongodb.client.MongoCollection;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -17,6 +18,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.bson.Document;
 
+import java.io.IOException;
 import java.util.Objects;
 
 public class LoginPage {
@@ -119,7 +121,16 @@ public class LoginPage {
             errorMessage.setText("");
             errorBox.setVisible(false);
 
-            this.app.switchScreen(this.app.MainPage);
+            try {
+                PersistentStore.saveData(
+                        "USERNAME=" + userName + "\n" +
+                        "PASSWORD=" + userPassword
+                );
+
+                this.app.switchScreen(this.app.MainPage);
+            } catch (IOException e) {
+                System.out.println("Failed to save store: " + e);
+            }
         });
 
 

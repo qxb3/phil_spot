@@ -9,11 +9,16 @@ import cc103.group3.philspot.pages.auth.LocationPage;
 import cc103.group3.philspot.pages.auth.MainPage;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
+import org.bson.Document;
+
+import java.io.IOException;
+import java.util.Properties;
 
 public class Main extends Application {
     public Stage primaryStage;
@@ -48,9 +53,36 @@ public class Main extends Application {
         this.LocationPageInstance = new LocationPage(this, screenWidth, screenHeight);
         this.LocationPage = this.LocationPageInstance.getScene();
 
-        primaryStage.setScene(this.LandingPage);
+        primaryStage.setScene(this.handleLogin());
         primaryStage.setTitle("PhilSpot");
         primaryStage.show();
+    }
+
+    private Scene handleLogin() {
+        try {
+            Properties store = PersistentStore.loadData();
+            String username = store.getProperty("USERNAME");
+            String password = store.getProperty("PASSWORD");
+
+            if (username == null || password == null)
+                return this.LoginPage;
+
+            MongoCollection<Document> users = this.database.getCollection("Users");
+            Document saidUser = users.find(
+                    new Document()
+                            .append("username", username)
+                            .append("password", password)
+            ).first();
+
+            if (saidUser == null)
+                return this.LandingPage;
+
+            return this.MainPage;
+        } catch (IOException e) {
+            System.out.println("Failed to load store: " + e);
+        }
+
+        return null;
     }
 
     public void switchScreen(Scene scene) {
