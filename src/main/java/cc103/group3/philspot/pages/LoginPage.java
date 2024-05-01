@@ -121,16 +121,12 @@ public class LoginPage {
             errorMessage.setText("");
             errorBox.setVisible(false);
 
-            try {
-                PersistentStore.saveData(
-                        "USERNAME=" + userName + "\n" +
-                        "PASSWORD=" + userPassword
-                );
+            PersistentStore.saveData(
+                    "USERNAME=" + userName + "\n" +
+                            "PASSWORD=" + userPassword
+            );
 
-                this.app.switchScreen(this.app.MainPage);
-            } catch (IOException e) {
-                System.out.println("Failed to save store: " + e);
-            }
+            this.app.switchScreen(this.app.MainPage);
         });
 
 

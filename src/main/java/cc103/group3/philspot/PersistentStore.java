@@ -12,17 +12,19 @@ public class PersistentStore {
     private static final String DATA_DIR_NAME = "Philspot";
     private static final String DATA_FILE_NAME = "store.txt";
 
-    public static void saveData(String data) throws IOException {
+    public static void saveData(String data) {
         Path dataDir = getDataDir();
         createDataDirectory(dataDir);
 
         Path dataFile = dataDir.resolve(DATA_FILE_NAME);
         try (BufferedWriter writer = Files.newBufferedWriter(dataFile)) {
             writer.write(data);
+        } catch (IOException e) {
+            System.out.println("Failed to save store: " + e);
         }
     }
 
-    public static Properties loadData() throws IOException {
+    public static Properties loadData() {
         Properties properties = new Properties();
         Path dataFile = getDataFile();
 
@@ -32,6 +34,8 @@ public class PersistentStore {
         if (Files.exists(dataFile)) {
             try (InputStream stream = Files.newInputStream(dataFile)) {
                 properties.load(stream);
+            } catch (IOException e) {
+                System.out.println("Failed to load store: " + e);
             }
         }
 
@@ -50,9 +54,13 @@ public class PersistentStore {
         return Paths.get(System.getenv("APPDATA"), DATA_DIR_NAME);
     }
 
-    private static void createDataDirectory(Path dataDir) throws IOException {
+    private static void createDataDirectory(Path dataDir) {
         if (!Files.exists(dataDir)) {
-            Files.createDirectories(dataDir);
+            try {
+                Files.createDirectories(dataDir);
+            } catch (IOException e) {
+                System.out.println("Failed to create store dir: " + e);
+            }
         }
     }
 

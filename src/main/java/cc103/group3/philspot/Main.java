@@ -59,30 +59,24 @@ public class Main extends Application {
     }
 
     private Scene handleLogin() {
-        try {
-            Properties store = PersistentStore.loadData();
-            String username = store.getProperty("USERNAME");
-            String password = store.getProperty("PASSWORD");
+        Properties store = PersistentStore.loadData();
+        String username = store.getProperty("USERNAME");
+        String password = store.getProperty("PASSWORD");
 
-            if (username == null || password == null)
-                return this.LoginPage;
+        if (username == null || password == null)
+            return this.LandingPage;
 
-            MongoCollection<Document> users = this.database.getCollection("Users");
-            Document saidUser = users.find(
-                    new Document()
-                            .append("username", username)
-                            .append("password", password)
-            ).first();
+        MongoCollection<Document> users = this.database.getCollection("Users");
+        Document saidUser = users.find(
+                new Document()
+                        .append("username", username)
+                        .append("password", password)
+        ).first();
 
-            if (saidUser == null)
-                return this.LandingPage;
+        if (saidUser == null)
+            return this.LandingPage;
 
-            return this.MainPage;
-        } catch (IOException e) {
-            System.out.println("Failed to load store: " + e);
-        }
-
-        return null;
+        return this.MainPage;
     }
 
     public void switchScreen(Scene scene) {
