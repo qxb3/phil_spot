@@ -99,6 +99,12 @@ public class RegisterPage {
                 return;
             }
 
+            if (userPassword.length() < 8) {
+                errorMessage.setText("Password needs to be atleast 8 characters");
+                errorBox.setVisible(true);
+                return;
+            }
+
             MongoCollection<Document> users = this.app.database.getCollection("Users");
 
             if (users.find(new Document().append("username", userName)).first() != null) {
