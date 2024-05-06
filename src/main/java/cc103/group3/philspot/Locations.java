@@ -99,7 +99,7 @@ public class Locations {
                     rev.setRating(Integer.parseInt(Files.readString(Path.of(reviewFile.getPath())).trim()));
 
                 if (reviewFile.getName().endsWith(".png") && !reviewFile.getName().equals("user_profile.png"))
-                    revImages.add("/images/locations/" + category.getName() + "/" + location.getName() + "/reviews/" + reviewFile.getName());
+                    revImages.add("/images/locations/" + category.getName() + "/" + location.getName() + "/reviews/" + review.getName() + "/" + reviewFile.getName());
             }
 
             rev.setImages(revImages.toArray(new String[0]));
