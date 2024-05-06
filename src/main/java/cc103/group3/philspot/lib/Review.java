@@ -1,5 +1,7 @@
 package cc103.group3.philspot.lib;
 
+import java.util.Arrays;
+
 public class Review {
     private String userImage;
     private String username;
@@ -58,5 +60,17 @@ public class Review {
 
     public Review build() {
         return this;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Image: ").append(userImage).append("\n");
+        sb.append("User: ").append(username).append("\n");
+        sb.append("Description: ").append(description).append("\n");
+        sb.append("Rating: ").append(rating).append("\n");
+        sb.append("Images: ").append(Arrays.toString(images)).append("\n");
+
+        return sb.toString();
     }
 }

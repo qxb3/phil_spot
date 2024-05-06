@@ -1,8 +1,11 @@
 package cc103.group3.philspot.lib;
 
+import java.util.Arrays;
+
 public class Location {
     private String[] images;
     private String name;
+    private String category;
     private String description;
     private String location;
     private String history;
@@ -24,6 +27,15 @@ public class Location {
 
     public Location setName(String name) {
         this.name = name;
+        return this;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public Location setCategory(String category) {
+        this.category = category;
         return this;
     }
 
@@ -78,5 +90,32 @@ public class Location {
 
     public Location build() {
         return this;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Name: ").append(name).append("\n");
+        sb.append("Category: ").append(category).append("\n");
+        sb.append("Description: ").append(description).append("\n");
+        sb.append("Location: ").append(location).append("\n");
+        sb.append("History: ").append(history).append("\n");
+        sb.append("Images: ").append(Arrays.toString(images)).append("\n");
+
+        if (thingsToDos != null && thingsToDos.length > 0) {
+            sb.append("Things to Do: ").append("\n");
+            for (ThingsToDo todo : thingsToDos) {
+                sb.append("- ").append(todo).append("\n");
+            }
+        }
+
+        if (reviews != null && reviews.length > 0) {
+            sb.append("Reviews: ").append("\n");
+            for (Review review : reviews) {
+                sb.append(review).append("\n");
+            }
+        }
+
+        return sb.toString();
     }
 }
