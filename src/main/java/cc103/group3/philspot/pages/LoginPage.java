@@ -5,6 +5,7 @@ import static com.mongodb.client.model.Filters.eq;
 import cc103.group3.philspot.Main;
 import cc103.group3.philspot.PersistentStore;
 import com.mongodb.client.MongoCollection;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -13,12 +14,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import org.bson.Document;
 
-import java.io.IOException;
 import java.util.Objects;
 
 public class LoginPage {
@@ -132,6 +134,14 @@ public class LoginPage {
             this.app.switchScreen(this.app.MainPage);
         });
 
+        EventHandler<KeyEvent> enterKeyPressed = event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                loginButton.fire();
+            }
+        };
+
+        username.setOnKeyPressed(enterKeyPressed);
+        password.setOnKeyPressed(enterKeyPressed);
 
         Label dontHaveAnAccount = new Label("Dont't have an account?");
         Hyperlink register = new Hyperlink("Register");

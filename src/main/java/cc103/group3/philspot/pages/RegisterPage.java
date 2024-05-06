@@ -2,6 +2,7 @@ package cc103.group3.philspot.pages;
 
 import cc103.group3.philspot.Main;
 import com.mongodb.client.MongoCollection;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -10,6 +11,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -124,6 +127,15 @@ public class RegisterPage {
 
             this.app.switchScreen(this.app.LoginPage);
         });
+
+        EventHandler<KeyEvent> enterKeyPressed = event -> {
+            if (event.getCode() == KeyCode.ENTER) {
+                registerButton.fire();
+            }
+        };
+
+        username.setOnKeyPressed(enterKeyPressed);
+        password.setOnKeyPressed(enterKeyPressed);
 
         Label alreadyHaveAnAccount = new Label("Already have an account?");
         Hyperlink login = new Hyperlink("Login");
