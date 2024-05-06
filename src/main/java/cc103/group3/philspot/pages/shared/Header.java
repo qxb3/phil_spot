@@ -124,6 +124,12 @@ public class Header extends HBox {
                 "-fx-font-size: 18px;"
         );
 
+        aboutUsButton.setOnAction(event -> {
+            popup.hide();
+
+            this.app.switchScreen(this.app.AboutUsPage);
+        });
+
         Button faqButton = new Button("FaQ");
         faqButton.setBackground(Background.EMPTY);
         faqButton.setCursor(Cursor.HAND);

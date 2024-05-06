@@ -1,0 +1,30 @@
+.container {
+    -fx-background-color: #848f9d;
+}
+
+.header-container {
+    -fx-padding: 28px;
+    -fx-background-color: #C6D4D8;
+    -fx-border-width: 4px 0 4px 0;
+    -fx-border-color: #fff;
+}
+
+.back-button {
+    -fx-font-size: 48px;
+    -fx-text-fill: #0d4f83;
+}
+
+.page-title {
+    -fx-font-size: 28px;
+    -fx-text-fill: #fff;
+}
+
+.body {
+    -fx-text-fill: #31241e;
+    -fx-font-size: 28px;
+}
+
+.body .third-txt {
+    -fx-text-fill: #100c0a;
+    -fx-font-weigth: bolder;
+}
