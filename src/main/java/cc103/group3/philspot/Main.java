@@ -6,6 +6,7 @@ import cc103.group3.philspot.pages.LandingPage;
 import cc103.group3.philspot.pages.LoginPage;
 import cc103.group3.philspot.pages.RegisterPage;
 import cc103.group3.philspot.pages.auth.AbousUsPage;
+import cc103.group3.philspot.pages.auth.FaQPage;
 import cc103.group3.philspot.pages.auth.LocationPage;
 import cc103.group3.philspot.pages.auth.MainPage;
 import com.mongodb.client.MongoClient;
@@ -24,7 +25,8 @@ import java.util.Properties;
 public class Main extends Application {
     public Stage primaryStage;
     public Scene LandingPage, LoginPage, RegisterPage,
-                 MainPage, LocationPage, AboutUsPage;
+                 MainPage, LocationPage,
+                 AboutUsPage, FaQPage;
 
     public LocationPage LocationPageInstance;
 
@@ -51,6 +53,7 @@ public class Main extends Application {
         this.RegisterPage = new RegisterPage(this, screenWidth, screenHeight).getScene();
         this.MainPage = new MainPage(this, screenWidth, screenHeight).getScene();
         this.AboutUsPage = new AbousUsPage(this, screenWidth, screenHeight).getScene();
+        this.FaQPage = new FaQPage(this, screenWidth, screenHeight).getScene();
 
         this.LocationPageInstance = new LocationPage(this, screenWidth, screenHeight);
         this.LocationPage = this.LocationPageInstance.getScene();

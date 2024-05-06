@@ -138,6 +138,12 @@ public class Header extends HBox {
                 "-fx-font-size: 18px;"
         );
 
+        faqButton.setOnAction(event -> {
+            popup.hide();
+
+            this.app.switchScreen(this.app.FaQPage);
+        });
+
         Button logoutButton = new Button("Logout");
         logoutButton.setBackground(Background.EMPTY);
         logoutButton.setCursor(Cursor.HAND);
