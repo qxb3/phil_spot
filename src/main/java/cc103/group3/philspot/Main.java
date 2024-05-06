@@ -28,6 +28,8 @@ public class Main extends Application {
                  MainPage, LocationPage,
                  AboutUsPage, FaQPage;
 
+    public Locations locations;
+
     public LocationPage LocationPageInstance;
 
     public MongoClient client;
@@ -38,8 +40,10 @@ public class Main extends Application {
     }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws IOException {
         this.primaryStage = primaryStage;
+
+        this.locations = new Locations();
 
         this.client = MongoClients.create(AppProperties.getProperty("MONGO_URI"));
         this.database = client.getDatabase("Main");

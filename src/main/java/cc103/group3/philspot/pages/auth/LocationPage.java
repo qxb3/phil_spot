@@ -60,7 +60,7 @@ public class LocationPage {
 
         AtomicInteger currentImage = new AtomicInteger();
         image.getStyleClass().setAll("carousel-img");
-        image.setStyle("-fx-background-image: url('" + location.getImages()[currentImage.get()] + "');");
+        image.setStyle("-fx-background-image: url('" + this.getResource(location.getImages()[currentImage.get()]) + "');");
 
         Button leftButton = new Button("<");
         HBox.setHgrow(leftButton, Priority.ALWAYS);
@@ -73,7 +73,7 @@ public class LocationPage {
             if (currentImage.get() <= 0) return;
 
             currentImage.set(currentImage.get() - 1);
-            image.setStyle("-fx-background-image: url('" + location.getImages()[currentImage.get()] + "');");
+            image.setStyle("-fx-background-image: url('" + this.getResource(location.getImages()[currentImage.get()]) + "');");
         });
 
         Button rightButton = new Button(">");
@@ -87,7 +87,7 @@ public class LocationPage {
             if (currentImage.get() >= this.location.getImages().length) return;
 
             currentImage.set(currentImage.get() + 1);
-            image.setStyle("-fx-background-image: url('" + location.getImages()[currentImage.get()] + "');");
+            image.setStyle("-fx-background-image: url('" + this.getResource(location.getImages()[currentImage.get()]) + "');");
         });
 
         carousel.getChildren().setAll(
@@ -219,7 +219,7 @@ public class LocationPage {
 
             toDo.getChildren().add(toDoTitle);
 
-            toDo.setStyle("-fx-background-image: url('" + location.getThingsToDos()[i].getImage() + "');");
+            toDo.setStyle("-fx-background-image: url('" + this.getResource(location.getThingsToDos()[i].getImage()) + "');");
 
             toDos.getChildren().add(toDo);
         }
@@ -246,7 +246,7 @@ public class LocationPage {
         for (int i = 0; i < this.location.getReviews().length; i++) {
             Review review = this.location.getReviews()[i];
 
-            ImageView userImage = new ImageView(new Image(review.getUserImage()));
+            ImageView userImage = new ImageView(new Image(this.getResource(review.getUserImage())));
             userImage.setPreserveRatio(true);
             userImage.setFitWidth(38);
 
@@ -296,7 +296,7 @@ public class LocationPage {
                 reviewImg.setMinHeight(250);
                 reviewImg.setMaxHeight(250);
 
-                reviewImg.setStyle("-fx-background-image: url('" + review.getImages()[j] + "');");
+                reviewImg.setStyle("-fx-background-image: url('" + this.getResource(review.getImages()[j]) + "');");
                 reviewImages.getChildren().add(reviewImg);
             }
 
