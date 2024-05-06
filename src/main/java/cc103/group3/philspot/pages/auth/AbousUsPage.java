@@ -89,7 +89,7 @@ public class AbousUsPage {
                 "lifelong memories one destination at a time."
         );
 
-        ImageView logoText = new ImageView(new Image(this.getResource("/images/logo_text.png")));
+        ImageView logoText = new ImageView(new Image(this.getResource("/images/philspot_logo.png")));
         logoText.setPreserveRatio(true);
         logoText.setFitWidth(400);
 
