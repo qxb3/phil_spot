@@ -23,6 +23,7 @@ import org.bson.Document;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.Properties;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class LocationPage {
@@ -150,16 +151,22 @@ public class LocationPage {
         MongoCollection<Document> wishlists = this.app.database.getCollection("Wishlists");
 
         ImageView heartImg = new ImageView();
-        Document existingWishlist = wishlists.find(
-                new Document()
-                        .append("user_id", store.get("ID"))
-                        .append("location", this.location.getName())
-        ).first();
 
-        if (existingWishlist == null)
+        AtomicBoolean alreadyExists = new AtomicBoolean(false);
+
+        Document existingWishlistQuery = new Document()
+                .append("user_id", store.getProperty("ID"))
+                .append("location", this.location.getName());
+
+        Document existingWishlist = wishlists.find(existingWishlistQuery).first();
+
+        if (existingWishlist == null) {
             heartImg.setImage(new Image(this.getResource("/images/icons/heart.png")));
-        else
+            alreadyExists.set(false);
+        } else {
             heartImg.setImage(new Image(this.getResource("/images/icons/heart_red.png")));
+            alreadyExists.set(true);
+        }
 
         heartImg.setPreserveRatio(true);
         heartImg.setFitWidth(48);
@@ -170,11 +177,22 @@ public class LocationPage {
         wishlistButton.setCursor(Cursor.HAND);
 
         wishlistButton.setOnAction(event -> {
-            Document newWishlist = new Document()
-                    .append("user_id", store.get("ID"))
-                    .append("location", this.location.getName());
+            if (alreadyExists.get() && existingWishlist != null) {
+                wishlists.findOneAndDelete(existingWishlistQuery);
+                alreadyExists.set(false);
 
-            wishlists.insertOne(newWishlist);
+                heartImg.setImage(new Image(this.getResource("/images/icons/heart.png")));
+                wishlistButton.setGraphic(heartImg);
+                return;
+            }
+
+            wishlists.insertOne(
+                    new Document()
+                            .append("user_id", store.get("ID"))
+                            .append("location", this.location.getName())
+            );
+
+            alreadyExists.set(true);
 
             heartImg.setImage(new Image(this.getResource("/images/icons/heart_red.png")));
             wishlistButton.setGraphic(heartImg);
