@@ -127,6 +127,7 @@ public class LoginPage {
             password.setText("");
 
             PersistentStore.saveData(
+                    "ID=" + saidUser.getObjectId("_id") + "\n" +
                     "USERNAME=" + userName + "\n" +
                     "PASSWORD=" + userPassword
             );
