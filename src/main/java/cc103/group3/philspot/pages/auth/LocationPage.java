@@ -1,10 +1,12 @@
 package cc103.group3.philspot.pages.auth;
 
 import cc103.group3.philspot.Main;
+import cc103.group3.philspot.PersistentStore;
 import cc103.group3.philspot.lib.Location;
 import cc103.group3.philspot.lib.Review;
 import cc103.group3.philspot.pages.shared.Footer;
 import cc103.group3.philspot.pages.shared.Header;
+import com.mongodb.client.MongoCollection;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -16,9 +18,11 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import org.bson.Document;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Properties;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class LocationPage {
@@ -142,7 +146,41 @@ public class LocationPage {
             ratingContainer.getChildren().add(star);
         }
 
-        nameAndRating.getChildren().setAll(name, ratingContainer);
+        Properties store = PersistentStore.loadData();
+        MongoCollection<Document> wishlists = this.app.database.getCollection("Wishlists");
+
+        ImageView heartImg = new ImageView();
+        Document existingWishlist = wishlists.find(
+                new Document()
+                        .append("user_id", store.get("ID"))
+                        .append("location", this.location.getName())
+        ).first();
+
+        if (existingWishlist == null)
+            heartImg.setImage(new Image(this.getResource("/images/icons/heart.png")));
+        else
+            heartImg.setImage(new Image(this.getResource("/images/icons/heart_red.png")));
+
+        heartImg.setPreserveRatio(true);
+        heartImg.setFitWidth(48);
+
+        Button wishlistButton = new Button();
+        wishlistButton.setBackground(Background.EMPTY);
+        wishlistButton.setGraphic(heartImg);
+        wishlistButton.setCursor(Cursor.HAND);
+
+        wishlistButton.setOnAction(event -> {
+            Document newWishlist = new Document()
+                    .append("user_id", store.get("ID"))
+                    .append("location", this.location.getName());
+
+            wishlists.insertOne(newWishlist);
+
+            heartImg.setImage(new Image(this.getResource("/images/icons/heart_red.png")));
+            wishlistButton.setGraphic(heartImg);
+        });
+
+        nameAndRating.getChildren().setAll(name, ratingContainer, wishlistButton);
 
         return nameAndRating;
     }
