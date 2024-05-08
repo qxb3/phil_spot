@@ -1,7 +1,5 @@
 package cc103.group3.philspot;
 
-// import static com.mongodb.client.model.Filters.eq;
-
 import cc103.group3.philspot.pages.LandingPage;
 import cc103.group3.philspot.pages.LoginPage;
 import cc103.group3.philspot.pages.RegisterPage;
@@ -22,12 +20,13 @@ import java.util.Properties;
 public class Main extends Application {
     public Stage primaryStage;
     public Scene LandingPage, LoginPage, RegisterPage,
-                 MainPage, LocationPage, WishlistsPage,
-                 AboutUsPage, FaQPage;
+                 MainPage, SearchPage, LocationPage,
+                 WishlistsPage, AboutUsPage, FaQPage;
 
     public Locations locations;
 
     public WishlistsPage WishlistsPageInstance;
+    public SearchPage SearchPageInstance;
     public LocationPage LocationPageInstance;
 
     public MongoClient client;
@@ -56,6 +55,9 @@ public class Main extends Application {
         this.MainPage = new MainPage(this, screenWidth, screenHeight).getScene();
         this.AboutUsPage = new AbousUsPage(this, screenWidth, screenHeight).getScene();
         this.FaQPage = new FaQPage(this, screenWidth, screenHeight).getScene();
+
+        this.SearchPageInstance = new SearchPage(this, screenWidth, screenHeight);
+        this.SearchPage = this.SearchPageInstance.getScene();
 
         this.LocationPageInstance = new LocationPage(this, screenWidth, screenHeight);
         this.LocationPage = this.LocationPageInstance.getScene();

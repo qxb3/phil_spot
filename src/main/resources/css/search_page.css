@@ -2,7 +2,17 @@ ScrollPane {
     -fx-background-color: #C6D4D8;
 }
 
-.destinations {
+.header-container {
+    -fx-padding: 24px;
+    -fx-background-color: #C6D4D8;
+}
+
+.header-container .back-button {
+    -fx-font-size: 48px;
+    -fx-text-fill: #0d4f83;
+}
+
+.header-container .destinations {
     -fx-background-color: #848f9d;
     -fx-background-radius: 16px;
     -fx-text-fill: #fff;
@@ -13,24 +23,7 @@ ScrollPane {
     -fx-padding: 10px 8px 10px 8px;
 }
 
-.categories .category {
-    -fx-background-size: cover;
-    -fx-background-radius: 16px;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-padding: 8px;
-    -fx-border-color: #414E55;
-    -fx-border-width: 2px;
-    -fx-text-fill: #fff;
-    -fx-font-size: 16px;
-}
-
-.locations-container .more-to-explore {
-    -fx-text-fill: #000;
-    -fx-font-size: 22px;
-}
-
-.locations-container .location {
+.results-container .location-img {
     -fx-background-size: cover;
     -fx-background-radius: 16px;
     -fx-background-repeat: no-repeat;
@@ -40,7 +33,15 @@ ScrollPane {
     -fx-border-width: 2px;
 }
 
-.locations-container .location Label {
-    -fx-text-fill: #fff;
+.results-container .location-name {
+    -fx-font-size: 20px;
+}
+
+.results-container .location-description,
+.results-container .location-address {
+    -fx-font-size: 16px;
+}
+
+.no-result {
     -fx-font-size: 24px;
 }

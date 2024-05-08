@@ -15,10 +15,12 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -72,6 +74,22 @@ public class MainPage {
         findDestinations.setPromptText("Find destinations");
         findDestinations.setMaxWidth(600);
         findDestinations.setCursor(Cursor.TEXT);
+
+        findDestinations.setOnKeyPressed(event -> {
+            if (event.getCode() != KeyCode.ENTER || findDestinations.getText().isEmpty()) return;
+
+            ArrayList<Location> searchResult = new ArrayList<>();
+            String query = findDestinations.getText().toLowerCase();
+
+            for (Location location : this.app.locations.getLocations().values()) {
+                if (location.getName().toLowerCase().contains(query)) {
+                    searchResult.add(location);
+                }
+            }
+
+            this.app.SearchPageInstance.setResult(searchResult, findDestinations.getText());
+            this.app.switchScreen(this.app.SearchPage);
+        });
 
         body.getChildren().setAll(
                 findDestinations,
@@ -202,7 +220,6 @@ public class MainPage {
 
         return button;
     }
-
 
     private String getResource(String path) {
         return Objects.requireNonNull(this.getClass().getResource(path)).toExternalForm();
