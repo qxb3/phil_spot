@@ -2,8 +2,6 @@ package cc103.group3.philspot.pages.auth;
 
 import cc103.group3.philspot.Main;
 import cc103.group3.philspot.lib.Location;
-import cc103.group3.philspot.lib.Review;
-import cc103.group3.philspot.lib.ThingsToDo;
 import cc103.group3.philspot.pages.shared.Footer;
 import cc103.group3.philspot.pages.shared.Header;
 import javafx.geometry.Insets;
@@ -21,7 +19,9 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+import java.util.Collection;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 public class MainPage {
     private static final VBox container = new VBox();
@@ -44,18 +44,28 @@ public class MainPage {
 
         this.scene = new Scene(scrollPane, width, height);
 
-        container.getChildren().add(new Header(this.app));
-        container.getChildren().add(this.body());
-        container.getChildren().add(new Footer());
+        container.getChildren().setAll(
+                new Header(this.app),
+                this.body(this.app.locations.getLocations().values()),
+                new Footer()
+        );
 
         this.scene.getStylesheets().add(this.getResource("/css/main_page.css"));
     }
 
-    private Node body() {
+    private Node body(Collection<Location> locations) {
         VBox body = new VBox();
         body.getStyleClass().setAll("body");
         body.setAlignment(Pos.CENTER);
         body.setPadding(new Insets(64));
+
+        body.setOnMouseClicked(event -> {
+            container.getChildren().setAll(
+                    new Header(this.app),
+                    this.body(this.app.locations.getLocations().values()),
+                    new Footer()
+            );
+        });
 
         TextField findDestinations = new TextField();
         findDestinations.getStyleClass().setAll("destinations");
@@ -66,7 +76,7 @@ public class MainPage {
         body.getChildren().setAll(
                 findDestinations,
                 this.categories(),
-                this.locations()
+                this.locations(locations)
         );
 
         return body;
@@ -117,10 +127,25 @@ public class MainPage {
 
         category.setStyle("-fx-background-image: url('" + this.getResource(image) + "');");
 
+        category.setOnAction(event -> {
+            Collection<Location> filteredLocation = this.app.locations
+                    .getLocations()
+                    .values()
+                    .stream()
+                    .filter(v -> v.getCategory().equals(text.toLowerCase()))
+                    .collect(Collectors.toList());
+
+            container.getChildren().setAll(
+                    new Header(this.app),
+                    this.body(filteredLocation),
+                    new Footer()
+            );
+        });
+
         return category;
     }
 
-    private Node locations() {
+    private Node locations(Collection<Location> locations) {
         VBox locationsContainer = new VBox();
         locationsContainer.getStyleClass().setAll("locations-container");
         locationsContainer.setPadding(new Insets(32, 128, 128, 128));
@@ -135,7 +160,7 @@ public class MainPage {
         HBox.setHgrow(locationsRow1, Priority.ALWAYS);
         locationsRow1.setSpacing(32);
 
-        for (Location location : this.app.locations.getLocations().values()) {
+        for (Location location : locations) {
             Button locationButton = createLocation(location);
             locationsRow1.getChildren().add(locationButton);
         }
