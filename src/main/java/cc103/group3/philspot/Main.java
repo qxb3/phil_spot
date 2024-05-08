@@ -5,10 +5,7 @@ package cc103.group3.philspot;
 import cc103.group3.philspot.pages.LandingPage;
 import cc103.group3.philspot.pages.LoginPage;
 import cc103.group3.philspot.pages.RegisterPage;
-import cc103.group3.philspot.pages.auth.AbousUsPage;
-import cc103.group3.philspot.pages.auth.FaQPage;
-import cc103.group3.philspot.pages.auth.LocationPage;
-import cc103.group3.philspot.pages.auth.MainPage;
+import cc103.group3.philspot.pages.auth.*;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoClients;
 import com.mongodb.client.MongoCollection;
@@ -25,11 +22,12 @@ import java.util.Properties;
 public class Main extends Application {
     public Stage primaryStage;
     public Scene LandingPage, LoginPage, RegisterPage,
-                 MainPage, LocationPage,
+                 MainPage, LocationPage, WishlistsPage,
                  AboutUsPage, FaQPage;
 
     public Locations locations;
 
+    public WishlistsPage WishlistsPageInstance;
     public LocationPage LocationPageInstance;
 
     public MongoClient client;
@@ -61,6 +59,9 @@ public class Main extends Application {
 
         this.LocationPageInstance = new LocationPage(this, screenWidth, screenHeight);
         this.LocationPage = this.LocationPageInstance.getScene();
+
+        this.WishlistsPageInstance = new WishlistsPage(this, screenWidth, screenHeight);
+        this.WishlistsPage = this.WishlistsPageInstance.getScene();
 
         primaryStage.setScene(this.handleLogin());
         primaryStage.setTitle("PhilSpot");

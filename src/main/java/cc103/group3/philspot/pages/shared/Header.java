@@ -55,6 +55,8 @@ public class Header extends HBox {
         heartButton.setGraphic(heartImage);
         heartButton.setCursor(Cursor.HAND);
         heartButton.setOnAction(event -> {
+            this.app.WishlistsPageInstance.populate();
+            this.app.switchScreen(this.app.WishlistsPage);
         });
 
         ImageView profileImage = new ImageView(new Image(getResource("/images/icons/user.png")));
@@ -73,7 +75,6 @@ public class Header extends HBox {
         profileButton.setOnAction(event -> {
             double buttonX = profileButton.localToScene(profileButton.getBoundsInLocal()).getMinX();
             double buttonY = profileButton.localToScene(profileButton.getBoundsInLocal()).getMinY();
-
 
             Properties store = PersistentStore.loadData();
             this.username.setText(store.getProperty("USERNAME"));

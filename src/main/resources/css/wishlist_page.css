@@ -1,0 +1,40 @@
+ScrollPane {
+    -fx-background-color: #C6D4D8;
+}
+
+.header-container {
+    -fx-padding: 24px;
+}
+
+.back-button {
+    -fx-font-size: 48px;
+    -fx-text-fill: #0d4f83;
+}
+
+.page-title {
+    -fx-font-size: 28px;
+    -fx-text-fill: #000;
+}
+
+.locations-container .location .image {
+    -fx-background-size: cover;
+    -fx-background-radius: 16px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-padding: 12px;
+    -fx-border-color: #414E55;
+    -fx-border-width: 2px;
+}
+
+.locations-container .location .name {
+    -fx-font-size: 28px;
+}
+
+.locations-container .location .address,
+.locations-container .location .description {
+    -fx-font-size: 20px;
+}
+
+.no-wishlists {
+    -fx-font-size: 24px;
+}
