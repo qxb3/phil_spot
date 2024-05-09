@@ -16,6 +16,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
@@ -166,7 +167,7 @@ public class MainPage {
     private Node locations(Collection<Location> locations) {
         VBox locationsContainer = new VBox();
         locationsContainer.getStyleClass().setAll("locations-container");
-        locationsContainer.setPadding(new Insets(32, 128, 128, 128));
+        locationsContainer.setPadding(new Insets(32, 32, 128, 32));
 
         Label moreToExplore = new Label("More to explore...");
         moreToExplore.getStyleClass().setAll("more-to-explore");
@@ -174,16 +175,21 @@ public class MainPage {
 
         locationsContainer.getChildren().add(moreToExplore);
 
-        HBox locationsRow1 = new HBox();
-        HBox.setHgrow(locationsRow1, Priority.ALWAYS);
-        locationsRow1.setSpacing(32);
+        GridPane grid = new GridPane();
+        grid.setGridLinesVisible(false);
+        grid.setHgap(32);
+        grid.setVgap(32);
 
-        for (Location location : locations) {
+        for (int i = 0; i < locations.size(); i++) {
+            int col = i % 4;
+            int row = i / 4;
+
+            Location location = (Location) locations.toArray()[i];
             Button locationButton = createLocation(location);
-            locationsRow1.getChildren().add(locationButton);
+            grid.add(locationButton, col, row);
         }
 
-        locationsContainer.getChildren().add(locationsRow1);
+        locationsContainer.getChildren().add(grid);
 
         return locationsContainer;
     }

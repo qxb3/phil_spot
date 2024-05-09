@@ -21,16 +21,14 @@ public class Locations {
     public Locations() throws IOException {
         File locationsDir = new File(this.getResource("/images/locations").getFile());
 
-
         for (File category : Objects.requireNonNull(locationsDir.listFiles())) {
             File categoryDir = new File(this.getResource("/images/locations/" + category.getName()).getFile());
-
-            Location loc = new Location();
-            loc.setCategory(category.getName());
 
             for (File location : Objects.requireNonNull(categoryDir.listFiles())) {
                 File locationDir = new File(this.getResource("/images/locations/" + category.getName() + "/" + location.getName()).getFile());
 
+                Location loc = new Location();
+                loc.setCategory(category.getName());
                 loc.setName(this.toTitleCase(location.getName()));
 
                 ArrayList<String> locationImages = new ArrayList<>();
@@ -52,9 +50,9 @@ public class Locations {
                 loc.setImages(locationImages.toArray(new String[0]));
                 loc.setThingsToDos(this.getThingsToDo(category, location));
                 loc.setReviews(this.getReviews(category, location));
-            }
 
-            this.locations.put(loc.getName(), loc);
+                this.locations.put(loc.getName(), loc);
+            }
         }
     }
 
@@ -129,8 +127,6 @@ public class Locations {
     public static void main(String[] args) throws IOException {
         Locations locs = new Locations();
 
-        for (Location loc : locs.getLocations().values()) {
-            System.out.println(loc);
-        }
+        System.out.println("Total: " + locs.getLocations().size());
     }
 }

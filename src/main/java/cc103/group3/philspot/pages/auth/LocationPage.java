@@ -255,11 +255,16 @@ public class LocationPage {
         title.getStyleClass().setAll("title");
         title.setPadding(new Insets(0, 0, 24, 0));
 
-        HBox toDos = new HBox();
+        GridPane toDos = new GridPane();
         toDos.getStyleClass().setAll("to-dos");
-        toDos.setSpacing(24);
+        toDos.setGridLinesVisible(false);
+        toDos.setHgap(24);
+        toDos.setVgap(24);
 
         for (int i = 0; i < this.location.getThingsToDos().length; i++) {
+            int col = i % 5;
+            int row = i / 5;
+
             VBox toDo = new VBox();
             toDo.getStyleClass().setAll("to-do");
             toDo.setMinWidth(150);
@@ -277,7 +282,7 @@ public class LocationPage {
 
             toDo.setStyle("-fx-background-image: url('" + this.getResource(location.getThingsToDos()[i].getImage()) + "');");
 
-            toDos.getChildren().add(toDo);
+            toDos.add(toDo, col, row);
         }
 
         thingsContainer.getChildren().setAll(
@@ -333,6 +338,7 @@ public class LocationPage {
             description.setWrapText(true);
 
             VBox leftSide = new VBox();
+            leftSide.setMinWidth(this.width / 2.4);
             leftSide.setSpacing(8);
             leftSide.getChildren().setAll(
                     userMeta,
@@ -340,11 +346,15 @@ public class LocationPage {
                     description
             );
 
-            HBox reviewImages = new HBox();
-            reviewImages.setAlignment(Pos.CENTER);
-            reviewImages.setSpacing(18);
+            GridPane reviewImages = new GridPane();
+            reviewImages.setGridLinesVisible(false);
+            reviewImages.setVgap(18);
+            reviewImages.setHgap(18);
 
             for (int j = 0; j < review.getImages().length; j++) {
+                int col = j % 3;
+                int row = j / 3;
+
                 VBox reviewImg = new VBox();
                 reviewImg.getStyleClass().setAll("review-img");
                 reviewImg.setMinWidth(200);
@@ -353,11 +363,12 @@ public class LocationPage {
                 reviewImg.setMaxHeight(250);
 
                 reviewImg.setStyle("-fx-background-image: url('" + this.getResource(review.getImages()[j]) + "');");
-                reviewImages.getChildren().add(reviewImg);
+                reviewImages.add(reviewImg, col, row);
             }
 
             HBox reviewBox = new HBox();
             reviewBox.setSpacing(32);
+            reviewBox.setPadding(new Insets(0, 0, 32, 0));
             reviewBox.getChildren().setAll(leftSide, reviewImages);
 
             reviewsContainer.getChildren().add(reviewBox);
