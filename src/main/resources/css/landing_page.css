@@ -1,4 +1,4 @@
-.scrollpane {
+.container {
     -fx-background-image: url('../images/ph_map_bg.png');
     -fx-background-size: cover;
 }

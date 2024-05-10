@@ -11,10 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 
 import java.util.Objects;
 
@@ -30,21 +27,14 @@ public class LandingPage {
         this.width = width;
         this.height = height;
 
-        ScrollPane scrollPane = new ScrollPane();
-        scrollPane.getStyleClass().setAll("scrollpane");
-        scrollPane.setContent(container);
-        scrollPane.setFitToWidth(true);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        container.getStyleClass().setAll("container");
+        container.getChildren().setAll(this.body());
 
-        this.scene = new Scene(scrollPane, width, height);
-
-        this.body();
-
+        this.scene = new Scene(container, width, height);
         this.scene.getStylesheets().add(this.getResource("/css/landing_page.css"));
     }
 
-    private void body() {
+    private Node body() {
         VBox body = new VBox();
         body.getStyleClass().setAll("body");
         VBox.setVgrow(body, Priority.ALWAYS);
@@ -56,10 +46,8 @@ public class LandingPage {
         hero.getChildren().add(this.right());
 
         body.getChildren().add(hero);
-        body.getChildren().add(this.categories());
-        body.getChildren().add(new Footer());
 
-        container.getChildren().add(body);
+        return body;
     }
 
     private Node left() {
@@ -136,48 +124,6 @@ public class LandingPage {
         container.getChildren().setAll(images);
 
         return container;
-    }
-
-    private Node categories() {
-        StackPane categories = new StackPane();
-        HBox.setHgrow(categories, Priority.ALWAYS);
-        categories.getStyleClass().setAll("categories");
-        categories.setPadding(new Insets(0, 64, 160, 64));
-        categories.setAlignment(Pos.CENTER);
-
-        double IMAGE_WIDTH = 550;
-        double IMAGE_SCALE = 0.75;
-
-        ImageView leftImage = new ImageView(new Image(getResource("/images/food.jpg"), true));
-        leftImage.setPreserveRatio(true);
-        leftImage.setFitWidth(IMAGE_WIDTH);
-        leftImage.setTranslateX(-leftImage.getFitWidth() / 1.5);
-        leftImage.setScaleX(IMAGE_SCALE);
-        leftImage.setScaleY(IMAGE_SCALE);
-
-        ImageView centerImage = new ImageView(new Image(getResource("/images/fun.jpg"), true));
-        centerImage.setPreserveRatio(true);
-        centerImage.setFitWidth(IMAGE_WIDTH);
-
-        ImageView rightImage = new ImageView(new Image(getResource("/images/scenery.jpg"), true));
-        rightImage.setPreserveRatio(true);
-        rightImage.setFitWidth(IMAGE_WIDTH);
-        rightImage.setTranslateX(rightImage.getFitWidth() / 1.5);
-        rightImage.setScaleX(IMAGE_SCALE);
-        rightImage.setScaleY(IMAGE_SCALE);
-
-        StackPane images = new StackPane();
-        images.getChildren().setAll(leftImage, rightImage, centerImage);
-
-        Button leftButton = new Button("<");
-        leftButton.setTranslateX(-centerImage.getFitWidth() - 32);
-
-        Button rightButton = new Button(">");
-        rightButton.setTranslateX(centerImage.getFitWidth() + 32);
-
-        categories.getChildren().setAll(images, leftButton, rightButton);
-
-        return categories;
     }
 
     private String getResource(String path) {
