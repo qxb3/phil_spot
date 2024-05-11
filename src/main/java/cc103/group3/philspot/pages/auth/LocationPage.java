@@ -187,7 +187,7 @@ public class LocationPage {
         wishlistButton.setCursor(Cursor.HAND);
 
         wishlistButton.setOnAction(event -> {
-            if (alreadyExists.get() && existingWishlist != null) {
+            if (alreadyExists.get()) {
                 wishlists.findOneAndDelete(existingWishlistQuery);
                 alreadyExists.set(false);
 
