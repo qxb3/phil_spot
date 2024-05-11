@@ -44,7 +44,6 @@ public class Header extends HBox {
         HBox icons = new HBox();
         HBox.setHgrow(icons, Priority.ALWAYS);
         icons.setAlignment(Pos.CENTER_RIGHT);
-        icons.setSpacing(4);
 
         ImageView heartImage = new ImageView(new Image(getResource("/images/icons/heart.png")));
         heartImage.setPreserveRatio(true);

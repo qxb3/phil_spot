@@ -58,14 +58,15 @@ public class LocationPage {
         carousel.setAlignment(Pos.CENTER);
 
         Pane image = new Pane();
-        image.setMinWidth(((double) 80 / 100) * this.width);
-        image.setMaxWidth(((double) 80 / 100) * this.width);
+        image.setMinWidth(((double) 70 / 100) * this.width);
+        image.setMaxWidth(((double) 70 / 100) * this.width);
         image.setMinHeight(500);
         image.setMaxHeight(500);
 
         AtomicInteger currentImage = new AtomicInteger();
         image.getStyleClass().setAll("carousel-img");
         image.setStyle("-fx-background-image: url('" + this.getResource(location.getImages()[currentImage.get()]) + "');");
+        carousel.setStyle("-fx-background-image: url('" + this.getResource(location.getImages()[currentImage.get()]) + "');");
 
         Button leftButton = new Button("<");
         HBox.setHgrow(leftButton, Priority.ALWAYS);
@@ -79,6 +80,7 @@ public class LocationPage {
 
             currentImage.set(currentImage.get() - 1);
             image.setStyle("-fx-background-image: url('" + this.getResource(location.getImages()[currentImage.get()]) + "');");
+            carousel.setStyle("-fx-background-image: url('" + this.getResource(location.getImages()[currentImage.get()]) + "');");
         });
 
         Button rightButton = new Button(">");
@@ -93,6 +95,7 @@ public class LocationPage {
 
             currentImage.set(currentImage.get() + 1);
             image.setStyle("-fx-background-image: url('" + this.getResource(location.getImages()[currentImage.get()]) + "');");
+            carousel.setStyle("-fx-background-image: url('" + this.getResource(location.getImages()[currentImage.get()]) + "');");
         });
 
         carousel.getChildren().setAll(
@@ -110,10 +113,17 @@ public class LocationPage {
         body.setPadding(new Insets(32));
         body.setSpacing(38);
 
-        body.getChildren().setAll(
+        VBox topMeta = new VBox();
+        topMeta.setSpacing(12);
+
+        topMeta.getChildren().setAll(
                 this.nameAndRating(),
                 this.locationAddress(),
-                this.locationDetails(),
+                this.locationDetails()
+        );
+
+        body.getChildren().setAll(
+                topMeta,
                 this.locationHistory(),
                 this.thingsToDo(),
                 this.reviews()
@@ -161,7 +171,7 @@ public class LocationPage {
         Document existingWishlist = wishlists.find(existingWishlistQuery).first();
 
         if (existingWishlist == null) {
-            heartImg.setImage(new Image(this.getResource("/images/icons/heart.png")));
+            heartImg.setImage(new Image(this.getResource("/images/icons/heart_black.png")));
             alreadyExists.set(false);
         } else {
             heartImg.setImage(new Image(this.getResource("/images/icons/heart_red.png")));
@@ -181,7 +191,7 @@ public class LocationPage {
                 wishlists.findOneAndDelete(existingWishlistQuery);
                 alreadyExists.set(false);
 
-                heartImg.setImage(new Image(this.getResource("/images/icons/heart.png")));
+                heartImg.setImage(new Image(this.getResource("/images/icons/heart_black.png")));
                 wishlistButton.setGraphic(heartImg);
                 return;
             }
@@ -206,12 +216,12 @@ public class LocationPage {
     private Node locationAddress() {
         HBox locationContainer = new HBox();
         locationContainer.getStyleClass().setAll("location");
-        locationContainer.setSpacing(16);
+        locationContainer.setSpacing(10);
         locationContainer.setAlignment(Pos.CENTER_LEFT);
 
         ImageView icon = new ImageView(new Image(this.getResource("/images/icons/location.png")));
         icon.setPreserveRatio(true);
-        icon.setFitWidth(24);
+        icon.setFitWidth(32);
 
         Label address = new Label(this.location.getLocation());
 
@@ -272,13 +282,19 @@ public class LocationPage {
             toDo.setMinHeight(250);
             toDo.setMaxHeight(250);
             toDo.setAlignment(Pos.TOP_CENTER);
-            toDo.setPadding(new Insets(8));
+
+            HBox toDoTitleContainer = new HBox();
+            toDoTitleContainer.getStyleClass().setAll("title-container");
+            toDoTitleContainer.setAlignment(Pos.TOP_CENTER);
+            toDoTitleContainer.setPadding(new Insets(8));
 
             Label toDoTitle = new Label(location.getThingsToDos()[i].getTitle());
+            toDoTitle.getStyleClass().setAll("title");
             toDoTitle.setWrapText(true);
-            toDoTitle.setAlignment(Pos.TOP_CENTER);
 
-            toDo.getChildren().add(toDoTitle);
+            toDoTitleContainer.getChildren().setAll(toDoTitle);
+
+            toDo.getChildren().add(toDoTitleContainer);
 
             toDo.setStyle("-fx-background-image: url('" + this.getResource(location.getThingsToDos()[i].getImage()) + "');");
 
@@ -297,6 +313,7 @@ public class LocationPage {
         VBox reviewsContainer = new VBox();
         reviewsContainer.getStyleClass().setAll("reviews");
         reviewsContainer.setPadding(new Insets(32, 0, 0, 0));
+        reviewsContainer.setSpacing(32);
 
         Label title = new Label("Reviews");
         title.getStyleClass().setAll("title");
@@ -308,8 +325,8 @@ public class LocationPage {
             Review review = this.location.getReviews()[i];
 
             ImageView userImage = new ImageView(new Image(this.getResource(review.getUserImage())));
-            userImage.setPreserveRatio(true);
             userImage.setFitWidth(38);
+            userImage.setFitHeight(38);
 
             Label username = new Label(review.getUsername());
             username.getStyleClass().setAll("username");

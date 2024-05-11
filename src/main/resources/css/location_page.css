@@ -8,7 +8,10 @@ ScrollPane {
 }
 
 .carousel {
-    -fx-background-color: #b3c6cb;
+    -fx-background-color: rgba(0, 0, 0, 0.8);
+    -fx-background-size: cover;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
 }
 
 .carousel .carousel-img {
@@ -19,15 +22,15 @@ ScrollPane {
 
 .carousel .control-button {
     -fx-text-fill: #fff;
-    -fx-font-size: 32px;
+    -fx-font-size: 48px;
 }
 
 .body .name {
-    -fx-font-size: 40px;
+    -fx-font-size: 28px;
 }
 
 .body .location Label {
-    -fx-font-size: 30px;
+    -fx-font-size: 20px;
 }
 
 .body .history .title,
@@ -40,11 +43,16 @@ ScrollPane {
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
-    -fx-border-color: #414E55;
+    -fx-border-color: #fff;
     -fx-border-width: 2px;
 }
 
-.body .things-to-do .to-dos .to-do Label {
+.body .things-to-do .to-dos .to-do .title-container {
+    -fx-background-color: rgba(0, 0, 0, 0.3);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.8), 32, 0, 0, 0);
+}
+
+.body .things-to-do .to-dos .to-do .title-container .title {
     -fx-text-fill: #fff;
     -fx-font-size: 20px;
 }
@@ -57,6 +65,6 @@ ScrollPane {
     -fx-background-size: cover;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
-    -fx-border-color: #414E55;
+    -fx-border-color: #fff;
     -fx-border-width: 2px;
 }

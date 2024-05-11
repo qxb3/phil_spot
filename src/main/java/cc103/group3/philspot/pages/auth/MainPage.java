@@ -18,7 +18,6 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
@@ -137,12 +136,17 @@ public class MainPage {
     }
 
     private Node createCategory(String image, String text) {
-        Button category = new Button(text);
+        Button category = new Button();
         category.getStyleClass().setAll("category");
         category.setAlignment(Pos.CENTER);
         category.setMinWidth(170);
         category.setMinHeight(70);
         category.setCursor(Cursor.HAND);
+
+        Label name = new Label(text);
+        name.getStyleClass().setAll("text");
+
+        category.setGraphic(name);
 
         category.setStyle("-fx-background-image: url('" + this.getResource(image) + "');");
 
@@ -197,9 +201,13 @@ public class MainPage {
 
     private Button createLocation(Location location) {
         Button button = new Button();
-        HBox.setHgrow(button, Priority.ALWAYS);
         button.getStyleClass().setAll("location");
+        button.setMinWidth(250);
+        button.setMaxWidth(250);
+        button.setMinHeight(350);
+        button.setMaxHeight(350);
         button.setCursor(Cursor.HAND);
+        button.setAlignment(Pos.TOP_LEFT);
 
         button.setOnAction(event -> {
             this.app.LocationPageInstance.setLocation(location);
@@ -207,11 +215,8 @@ public class MainPage {
         });
 
         HBox name = new HBox();
-        name.setMinWidth(250);
-        name.setMaxWidth(250);
-        name.setMinHeight(350);
-        name.setMaxHeight(350);
-        name.setAlignment(Pos.TOP_LEFT);
+        name.getStyleClass().setAll("name-container");
+        name.setMaxHeight(24);
         name.setSpacing(8);
 
         ImageView locIcon = new ImageView(new Image(this.getResource("/images/icons/location.png")));
