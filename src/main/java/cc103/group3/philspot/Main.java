@@ -43,7 +43,7 @@ public class Main extends Application {
         this.locations = new Locations();
 
         this.client = MongoClients.create(AppProperties.getProperty("MONGO_URI"));
-        this.database = client.getDatabase("Main");
+        this.database = client.getDatabase(AppProperties.getProperty("MONGO_DB_NAME"));
 
         Screen screen = Screen.getPrimary();
         double screenWidth = screen.getBounds().getWidth();
