@@ -167,7 +167,8 @@ public class MainPage {
     private Node locations(Collection<Location> locations) {
         VBox locationsContainer = new VBox();
         locationsContainer.getStyleClass().setAll("locations-container");
-        locationsContainer.setPadding(new Insets(32, 32, 128, 32));
+        locationsContainer.setAlignment(Pos.CENTER);
+        locationsContainer.setPadding(new Insets(32, 0, 128, 0));
 
         Label moreToExplore = new Label("More to explore...");
         moreToExplore.getStyleClass().setAll("more-to-explore");
