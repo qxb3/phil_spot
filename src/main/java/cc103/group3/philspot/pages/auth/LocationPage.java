@@ -224,6 +224,7 @@ public class LocationPage {
         icon.setFitWidth(32);
 
         Label address = new Label(this.location.getLocation());
+        address.setWrapText(true);
 
         locationContainer.getChildren().setAll(icon, address);
 
