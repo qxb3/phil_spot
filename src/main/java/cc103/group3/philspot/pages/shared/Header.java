@@ -31,7 +31,7 @@ public class Header extends HBox {
 
         ImageView logoImage = new ImageView(new Image(getResource("/images/philspot_logo.png")));
         logoImage.setPreserveRatio(true);
-        logoImage.setFitWidth(148);
+        logoImage.setFitWidth(84);
 
         Button logoButton = new Button();
         logoButton.setBackground(Background.EMPTY);
@@ -44,11 +44,11 @@ public class Header extends HBox {
         HBox icons = new HBox();
         HBox.setHgrow(icons, Priority.ALWAYS);
         icons.setAlignment(Pos.CENTER_RIGHT);
-        icons.setSpacing(16);
+        icons.setSpacing(4);
 
         ImageView heartImage = new ImageView(new Image(getResource("/images/icons/heart.png")));
         heartImage.setPreserveRatio(true);
-        heartImage.setFitWidth(50);
+        heartImage.setFitWidth(32);
 
         Button heartButton = new Button();
         heartButton.setBackground(Background.EMPTY);
@@ -61,7 +61,7 @@ public class Header extends HBox {
 
         ImageView profileImage = new ImageView(new Image(getResource("/images/icons/user.png")));
         profileImage.setPreserveRatio(true);
-        profileImage.setFitWidth(50);
+        profileImage.setFitWidth(32);
 
         Button profileButton = new Button();
         profileButton.setBackground(Background.EMPTY);
