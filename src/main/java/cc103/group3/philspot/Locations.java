@@ -51,7 +51,7 @@ public class Locations {
 
                 Location location = new Location()
                         .setCategory(category)
-                        .setName(locationName)
+                        .setName(this.toTitleCase(locationName))
                         .setLocation(locationAddress)
                         .setDescription(locationDescription)
                         .setHistory(locationHistory)
