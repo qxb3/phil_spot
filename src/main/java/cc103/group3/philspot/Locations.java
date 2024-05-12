@@ -4,8 +4,8 @@ import cc103.group3.philspot.lib.Location;
 import cc103.group3.philspot.lib.Review;
 import cc103.group3.philspot.lib.ThingsToDo;
 
-import java.io.File;
-import java.io.IOException;
+import java.io.*;
+import java.net.URI;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -17,41 +17,49 @@ import java.util.regex.Pattern;
 
 public class Locations {
     private HashMap<String, Location> locations = new HashMap<>();
+    private static final String LOCATIONS_PATH = "images/locations";
 
     public Locations() throws IOException {
-        File locationsDir = new File(this.getResource("/images/locations").getFile());
+        BufferedReader locationsReader = this.getResourceAsStream(LOCATIONS_PATH);
 
-        for (File category : Objects.requireNonNull(locationsDir.listFiles())) {
-            File categoryDir = new File(this.getResource("/images/locations/" + category.getName()).getFile());
+        String category;
+        while ((category = locationsReader.readLine()) != null) {
+            BufferedReader locationReader = this.getResourceAsStream(LOCATIONS_PATH + "/" + category);
 
-            for (File location : Objects.requireNonNull(categoryDir.listFiles())) {
-                File locationDir = new File(this.getResource("/images/locations/" + category.getName() + "/" + location.getName()).getFile());
+            String locationName, locationAddress = null, locationDescription = null, locationHistory = null;
+            ArrayList<String> locationImages = new ArrayList<>();
 
-                Location loc = new Location();
-                loc.setCategory(category.getName());
-                loc.setName(this.toTitleCase(location.getName()));
+            while ((locationName = locationReader.readLine()) != null) {
+                BufferedReader locationMetaReader = this.getResourceAsStream(LOCATIONS_PATH + "/" + category + "/" + locationName);
 
-                ArrayList<String> locationImages = new ArrayList<>();
+                String meta;
+                while ((meta = locationMetaReader.readLine()) != null) {
+                    File file = new File(this.getResource("/" + LOCATIONS_PATH + "/" + category + "/" + locationName + "/" + meta).getFile());
 
-                for (File file : Objects.requireNonNull(locationDir.listFiles())) {
-                    if (file.getName().equals("location"))
-                        loc.setLocation(Files.readString(Path.of(file.getPath())).trim());
+                    if (meta.equals("location"))
+                        locationAddress = Files.readString(Path.of(file.getPath())).trim();
 
-                    if (file.getName().equals("description"))
-                        loc.setDescription(Files.readString(Path.of(file.getPath())).trim());
+                    if (meta.equals("description"))
+                        locationDescription = Files.readString(Path.of(file.getPath())).trim();
 
-                    if (file.getName().equals("history"))
-                        loc.setHistory(Files.readString(Path.of(file.getPath())).trim());
+                    if (meta.equals("history"))
+                        locationHistory = Files.readString(Path.of(file.getPath())).trim();
 
-                    if (file.getName().endsWith(".png"))
-                        locationImages.add("/images/locations/" + category.getName() + "/" + location.getName() + "/" + file.getName());
+                    if (meta.endsWith(".png"))
+                        locationImages.add("/" + LOCATIONS_PATH + "/" + category + "/" + locationName + "/" + meta);
                 }
 
-                loc.setImages(locationImages.toArray(new String[0]));
-                loc.setThingsToDos(this.getThingsToDo(category, location));
-                loc.setReviews(this.getReviews(category, location));
+                Location location = new Location()
+                        .setCategory(category)
+                        .setName(locationName)
+                        .setLocation(locationAddress)
+                        .setDescription(locationDescription)
+                        .setHistory(locationHistory)
+                        .setImages(locationImages.toArray(new String[0]))
+                        .setThingsToDos(this.getThingsToDo(category, locationName))
+                        .setReviews(this.getReviews(category, locationName));
 
-                this.locations.put(loc.getName(), loc);
+                this.locations.put(location.getName(), location);
             }
         }
     }
@@ -60,48 +68,61 @@ public class Locations {
         return this.locations;
     }
 
-    private ThingsToDo[] getThingsToDo(File category, File location) {
+    private ThingsToDo[] getThingsToDo(String category, String location) throws IOException {
         ArrayList<ThingsToDo> thingsToDo = new ArrayList<>();
 
-        File thingsToDoDir = new File(this.getResource("/images/locations/" + category.getName() + "/" + location.getName() + "/things_to_do").getFile());
-        for (File thingToDo : Objects.requireNonNull(thingsToDoDir.listFiles())) {
-            ThingsToDo toDo = new ThingsToDo();
+        BufferedReader thingsToDoReader = this.getResourceAsStream(LOCATIONS_PATH + "/" + category + "/" + location + "/things_to_do");
 
-            toDo.setTitle(this.toTitleCase(thingToDo.getName().replace(".png", "")));
-            toDo.setImage("/images/locations/" + category.getName() + "/" + location.getName() + "/things_to_do/" + thingToDo.getName());
+        String thingToDo;
+        while ((thingToDo = thingsToDoReader.readLine()) != null) {
+            String title = this.toTitleCase(thingToDo.replace(".png", ""));
+            String image = "/" + LOCATIONS_PATH + "/" + category + "/" + location + "/things_to_do/" + thingToDo;
 
-            thingsToDo.add(toDo);
+            thingsToDo.add(
+                    new ThingsToDo()
+                            .setTitle(title)
+                            .setImage(image)
+            );
         }
 
         return thingsToDo.toArray(new ThingsToDo[0]);
     }
 
-    private Review[] getReviews(File category, File location) throws IOException {
+    private Review[] getReviews(String category, String location) throws IOException {
         ArrayList<Review> reviews = new ArrayList<>();
 
-        File reviewsDir = new File(this.getResource("/images/locations/" + category.getName() + "/" + location.getName() + "/reviews").getFile());
-        for (File review : Objects.requireNonNull(reviewsDir.listFiles())) {
-            File reviewDir = new File(this.getResource("/images/locations/" + category.getName() + "/" + location.getName() + "/reviews/" + review.getName()).getFile());
+        BufferedReader reviewsReader = this.getResourceAsStream(LOCATIONS_PATH + "/" + category + "/" + location + "/reviews");
 
-            Review rev = new Review();
-            ArrayList<String> revImages = new ArrayList<>();
+        String username;
 
-            rev.setUsername(this.toTitleCase(review.getName()));
-            rev.setUserImage("/images/locations/" + category.getName() + "/" + location.getName() + "/reviews/" + review.getName() + "/user_profile.png");
+        while ((username = reviewsReader.readLine()) != null) {
+            BufferedReader reviewReader = this.getResourceAsStream(LOCATIONS_PATH + "/" + category + "/" + location + "/reviews/" + username);
 
-            for (File reviewFile : Objects.requireNonNull(reviewDir.listFiles())) {
-                if (reviewFile.getName().equals("description"))
-                    rev.setDescription(Files.readString(Path.of(reviewFile.getPath())).trim());
+            String meta, description = null;
+            int rating = 0;
+            ArrayList<String> reviewImages = new ArrayList<>();
 
-                if (reviewFile.getName().equals("rating"))
-                    rev.setRating(Integer.parseInt(Files.readString(Path.of(reviewFile.getPath())).trim()));
+            while ((meta = reviewReader.readLine()) != null) {
+                File file = new File(this.getResource("/" + LOCATIONS_PATH + "/" + category + "/" + location + "/reviews/" + username + "/" + meta).getFile());
 
-                if (reviewFile.getName().endsWith(".png") && !reviewFile.getName().equals("user_profile.png"))
-                    revImages.add("/images/locations/" + category.getName() + "/" + location.getName() + "/reviews/" + review.getName() + "/" + reviewFile.getName());
+                if (meta.equals("description"))
+                    description = Files.readString(Path.of(file.getPath())).trim();
+
+                if (meta.equals("rating"))
+                    rating = Integer.parseInt(Files.readString(Path.of(file.getPath())).trim());
+
+                if (meta.endsWith(".png") && !meta.equals("user_profile.png"))
+                    reviewImages.add("/" + LOCATIONS_PATH + "/" + category + "/" + location + "/reviews/" + username + "/" + meta);
             }
 
-            rev.setImages(revImages.toArray(new String[0]));
-            reviews.add(rev);
+            reviews.add(
+                    new Review()
+                            .setUsername(username)
+                            .setUserImage("/" + LOCATIONS_PATH + "/" + category + "/" + location + "/reviews/" + username + "/user_profile.png")
+                            .setDescription(description)
+                            .setRating(rating)
+                            .setImages(reviewImages.toArray(new String[0]))
+            );
         }
 
         return reviews.toArray(new Review[0]);
@@ -120,13 +141,18 @@ public class Locations {
         return result.toString();
     }
 
+    private BufferedReader getResourceAsStream(String path) {
+        InputStream stream = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResourceAsStream(path));
+        return new BufferedReader(new InputStreamReader(stream));
+    }
+
     private URL getResource(String path) {
         return Objects.requireNonNull(this.getClass().getResource(path));
     }
 
     public static void main(String[] args) throws IOException {
-        Locations locs = new Locations();
+        Locations locations = new Locations();
 
-        System.out.println("Total: " + locs.getLocations().size());
+        System.out.println(locations.getLocations().size());
     }
 }
