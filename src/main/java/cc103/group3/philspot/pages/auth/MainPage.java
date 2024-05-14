@@ -1,6 +1,7 @@
 package cc103.group3.philspot.pages.auth;
 
 import cc103.group3.philspot.Main;
+import cc103.group3.philspot.lib.Category;
 import cc103.group3.philspot.lib.Location;
 import cc103.group3.philspot.pages.shared.Footer;
 import cc103.group3.philspot.pages.shared.Header;
@@ -101,71 +102,67 @@ public class MainPage {
     }
 
     private Node categories() {
-        VBox categories = new VBox();
+        GridPane categories = new GridPane();
+        VBox.setMargin(categories, new Insets(40, 0, 0, 0));
         categories.getStyleClass().setAll("categories");
         categories.setAlignment(Pos.CENTER);
-        categories.setSpacing(16);
-        categories.setPadding(new Insets(32, 0, 0, 0));
+        categories.setGridLinesVisible(false);
+        categories.setHgap(32);
+        categories.setVgap(32);
 
-        HBox row1 = new HBox();
-        row1.setAlignment(Pos.CENTER);
-        row1.setSpacing(32);
-        row1.getChildren().setAll(
-                createCategory("/images/main_page/mountains.png", "Mountains"),
-                createCategory("/images/main_page/beaches.png", "Beaches"),
-                createCategory("/images/main_page/churches.png", "Churches"),
-                createCategory("/images/main_page/historical.png", "Historical")
-        );
+        Category[] categoryList = {
+                new Category("/images/main_page/mountains.png", "Mountains"),
+                new Category("/images/main_page/beaches.png", "Beaches"),
+                new Category("/images/main_page/churches.png", "Churches"),
+                new Category("/images/main_page/historical.png", "Historical"),
+                new Category("/images/main_page/parks.png", "Parks"),
+                new Category("/images/main_page/volcanoes.png", "Volcanoes"),
+                new Category("/images/main_page/hills.png", "Hills"),
+                new Category("/images/main_page/falls.png", "Falls")
+        };
 
-        HBox row2 = new HBox();
-        row2.setAlignment(Pos.CENTER);
-        row2.setSpacing(32);
-        row2.getChildren().setAll(
-                createCategory("/images/main_page/parks.png", "Parks"),
-                createCategory("/images/main_page/volcanoes.png", "Volcanoes"),
-                createCategory("/images/main_page/hills.png", "Hills"),
-                createCategory("/images/main_page/falls.png", "Falls")
-        );
+        for (int i = 0; i < categoryList.length; i++) {
+            int col = i % 4;
+            int row = i / 4;
 
-        categories.getChildren().setAll(
-                row1,
-                row2
-        );
+            Category category = categoryList[i];
+
+            Button categoryButton = new Button();
+            categoryButton.getStyleClass().setAll("category");
+            categoryButton.setAlignment(Pos.CENTER);
+            categoryButton.setMinWidth(170);
+            categoryButton.setMinHeight(70);
+            categoryButton.setCursor(Cursor.HAND);
+
+            Label name = new Label(category.getText());
+            name.getStyleClass().setAll("text");
+            name.setAlignment(Pos.CENTER);
+            name.setMinWidth(170);
+            name.setMinHeight(70);
+
+            categoryButton.setGraphic(name);
+
+            categoryButton.setStyle("-fx-background-image: url('" + this.getResource(category.getImage()) + "');");
+
+            categoryButton.setOnAction(event -> {
+                Collection<Location> filteredLocation = this.app.locations
+                        .getLocations()
+                        .values()
+                        .stream()
+                        .filter(v -> v.getCategory().equals(category.getText().toLowerCase()))
+                        .collect(Collectors.toList());
+
+                container.getChildren().setAll(
+                        new Header(this.app),
+                        this.body(filteredLocation),
+                        new Footer()
+                );
+            });
+
+            categories.add(categoryButton, col, row);
+        }
 
         return categories;
-    }
-
-    private Node createCategory(String image, String text) {
-        Button category = new Button();
-        category.getStyleClass().setAll("category");
-        category.setAlignment(Pos.CENTER);
-        category.setMinWidth(170);
-        category.setMinHeight(70);
-        category.setCursor(Cursor.HAND);
-
-        Label name = new Label(text);
-        name.getStyleClass().setAll("text");
-
-        category.setGraphic(name);
-
-        category.setStyle("-fx-background-image: url('" + this.getResource(image) + "');");
-
-        category.setOnAction(event -> {
-            Collection<Location> filteredLocation = this.app.locations
-                    .getLocations()
-                    .values()
-                    .stream()
-                    .filter(v -> v.getCategory().equals(text.toLowerCase()))
-                    .collect(Collectors.toList());
-
-            container.getChildren().setAll(
-                    new Header(this.app),
-                    this.body(filteredLocation),
-                    new Footer()
-            );
-        });
-
-        return category;
     }
 
     private Node locations(Collection<Location> locations) {
@@ -181,13 +178,14 @@ public class MainPage {
         locationsContainer.getChildren().add(moreToExplore);
 
         GridPane grid = new GridPane();
+        grid.setAlignment(Pos.CENTER);
         grid.setGridLinesVisible(false);
         grid.setHgap(32);
         grid.setVgap(32);
 
         for (int i = 0; i < locations.size(); i++) {
-            int col = i % 4;
-            int row = i / 4;
+            int col = i % 5;
+            int row = i / 5;
 
             Location location = (Location) locations.toArray()[i];
             Button locationButton = createLocation(location);
@@ -202,10 +200,10 @@ public class MainPage {
     private Button createLocation(Location location) {
         Button button = new Button();
         button.getStyleClass().setAll("location");
-        button.setMinWidth(250);
-        button.setMaxWidth(250);
-        button.setMinHeight(350);
-        button.setMaxHeight(350);
+        button.setMinWidth(200);
+        button.setMaxWidth(200);
+        button.setMinHeight(300);
+        button.setMaxHeight(300);
         button.setCursor(Cursor.HAND);
         button.setAlignment(Pos.TOP_LEFT);
 
