@@ -58,8 +58,8 @@ public class LocationPage {
         carousel.setAlignment(Pos.CENTER);
 
         Pane image = new Pane();
-        image.setMinWidth(((double) 70 / 100) * this.width);
-        image.setMaxWidth(((double) 70 / 100) * this.width);
+        image.setMinWidth(((double) 80 / 100) * this.width);
+        image.setMaxWidth(((double) 80 / 100) * this.width);
         image.setMinHeight(500);
         image.setMaxHeight(500);
 
