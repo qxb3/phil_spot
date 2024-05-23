@@ -48,5 +48,5 @@ ScrollPane {
 
 .locations-container .location Label {
     -fx-text-fill: #fff;
-    -fx-font-size: 24px;
+    -fx-font-size: 18px;
 }

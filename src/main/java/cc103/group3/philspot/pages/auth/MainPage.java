@@ -219,7 +219,7 @@ public class MainPage {
 
         ImageView locIcon = new ImageView(new Image(this.getResource("/images/icons/location.png")));
         locIcon.setPreserveRatio(true);
-        locIcon.setFitWidth(32);
+        locIcon.setFitWidth(24);
 
         name.getChildren().add(locIcon);
         name.getChildren().add(new Label(location.getName()));
